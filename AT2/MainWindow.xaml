@@ -105,9 +105,20 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
-                <TabItem x:Name="tabitemJob" Header="Job">
+                <TabItem x:Name="tabitemJob" Header="Job" >
                     <!-- Job DataGrid -->
-                    <DataGrid x:Name="datagridJob">
+                    <DataGrid x:Name="datagridJob" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
+                            <DataGridTextColumn Header="Title" Binding="{Binding Title}" />
+                            <DataGridTextColumn Header="Date">
+                                <DataGridTextColumn.Binding>
+                                    <Binding Path="Date" StringFormat="dd/MM/yyyy" />
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+                            <DataGridCheckBoxColumn Header="Status" Binding="{Binding Completed}" />
+                            <DataGridCheckBoxColumn Header="Contractor" Binding="{Binding ContractorAssigned}" />
+                        </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
             </TabControl>
