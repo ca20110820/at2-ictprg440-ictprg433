@@ -29,6 +29,10 @@ namespace AT2
 
         public void RemoveContractor(Contractor contractor)
         {
+            if (!contractor.IsAvailable)  // Contractor is currently working and not available
+            {
+                throw new Exception($"We cannot remove {contractor}! He/She is currently working.");
+            }
             contractors.Remove(contractor);
         }
 
