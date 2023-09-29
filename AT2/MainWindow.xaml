@@ -5,8 +5,127 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AT2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Recruitment Tracker" Height="450" Width="800">
+    <Grid Name="rootGrid">
+        <!-- Set Root Grid Properties -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.93*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Set Grid Properties for the Forms -->
+        <Grid Name="gridForms" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="0.9*"/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Contractor Form -->
+            <GroupBox Grid.Row="0" Grid.Column="0" Header="Contractor">
+                <StackPanel>
+                    <Label Content="First Name" FontWeight="Bold"/>
+                    <TextBox x:Name="txtbxFirstName" />
+                    <Label Content="Last Name" FontWeight="Bold"/>
+                    <TextBox x:Name="txtbxLastName" />
+                    <Label Content="Start Date" FontWeight="Bold"/>
+                    <DatePicker x:Name="datepickerStartDate" />
+                    <Label Content="Hourly Wage ($)" FontWeight="Bold"/>
+                    <TextBox x:Name="txtbxHourlyWage" />
+                    <Label x:Name="labelAvailability" Content="" FontWeight="Bold"/>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Contractor Buttons -->
+            <StackPanel Grid.Row="1" Grid.Column="0">
+                <Button x:Name="btnAddContractor" Content="Add Contractor" Margin="10,10,10,5"/>
+                <Button x:Name="btnUpdateContractor" Content="Update Contractor" Margin="10,10,10,5"/>
+                <Button x:Name="btnRemoveContractor" Content="Remove Contractor" Margin="10,10,10,5"/>
+            </StackPanel>
+            
+            <!-- Job Form -->
+            <GroupBox Header="Job" Grid.Row="0" Grid.Column="1">
+                <StackPanel>
+                    <Label Content="Title" FontWeight="Bold"/>
+                    <TextBox x:Name="txtbxTitle" />
+                    <Label Content="Date" FontWeight="Bold"/>
+                    <DatePicker x:Name="datepickerDate" />
+                    <Label Content="Cost" FontWeight="Bold"/>
+                    <TextBox x:Name="txtbxCost" />
+                    <Label Content="Status" FontWeight="Bold"/>
+                    <ComboBox x:Name="comboboxCompleted">
+                        <ComboBoxItem Content="Completed"/>
+                        <ComboBoxItem Content="Not Complete"/>
+                    </ComboBox>
+                    <Label Content="Contractor Assigned" FontWeight="Bold"/>
+                    <ComboBox x:Name="comboboxContractorAssigned"/>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Job Buttons -->
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <Button x:Name="btnAddJob" Content="Add Job" Margin="10,10,10,5"/>
+                <Button x:Name="btnUpdateJob" Content="Update Job" Margin="10,10,10,5"/>
+                <Button x:Name="btnRemoveJob" Content="Remove Job" Margin="10,10,10,5"/>
+            </StackPanel>
+
+            <Button x:Name="btnRun" Content="Run" Grid.Row="2" Grid.Column="1" />
+        </Grid>
+
+        <!-- Set Root Grid Properties for Views and Filters -->
+        <Grid Name="gridViewsAndFilters" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Set Tab Control -->
+            <TabControl Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                <TabItem x:Name="tabitemContractor" Header="Contractor">
+                    <!-- Contractor ListBox -->
+                    <ListView x:Name="listviewContractor"/>
+                </TabItem>
+                <TabItem x:Name="tabitemJob" Header="Job">
+                    <!-- Job ListBox -->
+                    <ListView x:Name="listviewJob"/>
+                </TabItem>
+            </TabControl>
+
+            <!-- Set Filter and Viewing Buttons -->
+            <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.4*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ComboBox x:Name="comboboxFilters" Margin="10,25,10,50" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+                    <ComboBoxItem Content="Get All Contractors"/>
+                    <ComboBoxItem Content="Get All Jobs"/>
+                    <ComboBoxItem Content="Get Available Contractors"/>
+                    <ComboBoxItem Content="Get Unassigned Jobs"/>
+                    <ComboBoxItem Content="Get Jobs By Cost"/>
+                </ComboBox>
+
+                <TextBox x:Name="txtMinValue" Text="Min Value" Grid.Column="1" Grid.Row="0" Margin="20,30,20,45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                <TextBox x:Name="txtMaxValue" Text="Max Value" Grid.Column="2" Grid.Row="0" Margin="20,30,20,45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
+
+
+        </Grid>
 
     </Grid>
 </Window>
