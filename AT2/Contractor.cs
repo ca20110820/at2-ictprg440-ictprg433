@@ -71,6 +71,14 @@ namespace AT2
         public string ID
         {
             get { return uid; }
+            set
+            {
+                if (value.Trim().Length == 0)
+                {
+                    throw new ArgumentException("ID Cannot be an empty string!");
+                }
+                uid = value;
+            }
         }
         public string FullName
         {
@@ -96,40 +104,18 @@ namespace AT2
 
         public Contractor(string uid, string firstName, string lastName, double hourlyWage)
         {
-            // --- Catch Invalid Arguments ---
-            if (uid.Trim().Length == 0 || firstName.Trim().Length == 0 || lastName.Trim().Length == 0)
-            {
-                throw new ArgumentException("ID, First, and Last Names Cannot be empty strings!");
-            }
-            if (hourlyWage <= 0)
-            {
-                throw new ArgumentException("Hourly Wage cannot be less than or equal to zero!");
-            }
-
-            this.uid = uid;  // Custom UID
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.hourlyWage = hourlyWage;
+            ID = uid;  // Custom UID
+            FirstName = firstName;
+            LastName = lastName;
+            HourlyWage = hourlyWage;
             StartDate = null;  // StartDate is null by default when instantiation
         }
         public Contractor(string firstName, string lastName, double hourlyWage)
         {
-            // --- Catch Invalid Arguments ---
-            if (hourlyWage <= 0)
-            {
-                throw new ArgumentException("Hourly Wage cannot be less than or equal to zero!");
-            }
-
-            // Generate Random UID
-            Guid randomGuid = Guid.NewGuid();
-            string randomId = Convert.ToBase64String(randomGuid.ToByteArray());
-            randomId = randomId.Replace("/", "").Replace("+", "");
-            randomId = randomId[..5];
-
-            this.uid = randomId;  // Custom UID
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.hourlyWage = hourlyWage;
+            ID = GenerateID();  // Custom UID
+            FirstName = firstName;
+            LastName = lastName;
+            HourlyWage = hourlyWage;
             StartDate = null;  // StartDate is null by default when instantiation
         }
 
