@@ -138,5 +138,14 @@ namespace AT2
             string availability = IsAvailable ? "Available" : "Not Avilable";
             return $"({ID}) - {FullName} | ${HourlyWage} | {availability}";
         }
+
+        private static string GenerateID(int length = 5)
+        {
+            Guid randomGuid = Guid.NewGuid();
+            string randomId = Convert.ToBase64String(randomGuid.ToByteArray());
+            randomId = randomId.Replace("/", "").Replace("+", "");
+            randomId = randomId[..length];
+            return randomId;
+        }
     }
 }
