@@ -152,12 +152,36 @@ namespace AT2
             Cost = cost;
             ContractorAssigned = contractor;
         }
+        public Job(string title, DateTime date, double cost)
+        {
+            ID = GenerateID();
+            Title = title;
+            Date = date;
+            Cost = cost;
+        }
+        public Job(string title, DateTime date, double cost, Contractor contractor)
+        {
+            ID = GenerateID();
+            Title = title;
+            Date = date;
+            Cost = cost;
+            ContractorAssigned = contractor;
+        }
 
         public override string ToString()
         {
             string contractorName = ContractorAssigned == null ? "No Contractor" : ContractorAssigned.FullName;
             string status = Completed ? "Completed" : "Not Complete";
             return $"({ID}) - {Title} (status) | {Date.Date.ToString()} | ${Cost} | {contractorName}";
+        }
+
+        private static string GenerateID(int length = 5)
+        {
+            Guid randomGuid = Guid.NewGuid();
+            string randomId = Convert.ToBase64String(randomGuid.ToByteArray());
+            randomId = randomId.Replace("/", "").Replace("+", "");
+            randomId = randomId[..length];
+            return randomId;
         }
     }
 }
