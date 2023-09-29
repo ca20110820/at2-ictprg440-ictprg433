@@ -42,7 +42,7 @@
 
             <!-- Contractor Buttons -->
             <StackPanel Grid.Row="1" Grid.Column="0">
-                <Button x:Name="btnAddContractor" Content="Add Contractor" Margin="10,10,10,5"/>
+                <Button x:Name="btnAddContractor" Content="Add Contractor" Margin="10,10,10,5" Click="btnAddContractor_Click"/>
                 <Button x:Name="btnUpdateContractor" Content="Update Contractor" Margin="10,10,10,5"/>
                 <Button x:Name="btnRemoveContractor" Content="Remove Contractor" Margin="10,10,10,5"/>
             </StackPanel>
@@ -88,7 +88,7 @@
             </Grid.RowDefinitions>
 
             <!-- Set Tab Control -->
-            <TabControl Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+            <TabControl x:Name="tabctrlDataGrids" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
                 <TabItem x:Name="tabitemContractor" Header="Contractor">
                     <!-- Contractor DataGrid -->
                     <DataGrid x:Name="datagridContractor" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="datagridContractor_SelectionChanged">

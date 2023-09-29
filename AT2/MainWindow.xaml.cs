@@ -75,5 +75,23 @@ namespace AT2
             comboboxCompleted.SelectedIndex = selectedJob.Completed ? 0 : 1;  // 0->"Completed" and 1-> "Not Complete"
             comboboxContractorAssigned.SelectedItem = selectedJob.ContractorAssigned != null ? selectedJob.ContractorAssigned : null;
         }
+
+        private void btnAddContractor_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                Contractor newContractor = new Contractor(txtbxFirstName.Text, txtbxLastName.Text, double.Parse(txtbxHourlyWage.Text));  // Instantiate New Contractor
+                recruitmentSystem.AddContractor(newContractor);  // Add new Contractor
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Error");
+                return;
+            }
+            tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
+            datagridContractor.ItemsSource = null;
+            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+        }
     }
 }
