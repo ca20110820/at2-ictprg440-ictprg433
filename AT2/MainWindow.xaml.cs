@@ -45,9 +45,6 @@ namespace AT2
             recruitmentSystem.AssignJob(recruitmentSystem.GetJobs().ToArray()[1], recruitmentSystem.GetContractors().ToArray()[1]);
 
             recruitmentSystem.CompleteJob(recruitmentSystem.GetJobs().ToArray()[1]);
-
-            listviewContractor.ItemsSource = recruitmentSystem.GetContractors();
-            listviewJob.ItemsSource = recruitmentSystem.GetJobs();
         }
     }
 }
