@@ -173,6 +173,28 @@ namespace AT2
             return $"{ID} - {Title}";
         }
 
+        public override bool Equals(object otherItem)
+        {
+            if (!(otherItem is Job))
+            {
+                return false;
+            }
+            else
+            {
+                Job item = (Job)otherItem;
+                bool equalConditions =
+                    item.Title == Title && item.Date == Date && item.Cost == Cost && item.ContractorAssigned== ContractorAssigned && item.Completed == Completed;
+                if (equalConditions)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         private static string GenerateID(int length = 5)
         {
             Guid randomGuid = Guid.NewGuid();

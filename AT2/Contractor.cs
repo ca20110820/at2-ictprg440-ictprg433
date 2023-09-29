@@ -124,6 +124,28 @@ namespace AT2
             return $"{ID} - {FullName}";
         }
 
+        public override bool Equals(object otherItem)
+        {
+            if (!(otherItem is Contractor))
+            {
+                return false;
+            }
+            else
+            {
+                Contractor item = (Contractor)otherItem;
+                bool equalConditions =
+                    item.FullName==FullName && item.IsAvailable== IsAvailable && item.StartDate== StartDate && item.HourlyWage== HourlyWage;
+                if(equalConditions )
+                {
+                    return true;
+                }
+                else 
+                { 
+                    return false; 
+                }
+            }
+        }
+
         private static string GenerateID(int length = 5)
         {
             Guid randomGuid = Guid.NewGuid();
