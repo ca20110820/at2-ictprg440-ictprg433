@@ -172,7 +172,7 @@ namespace AT2
         {
             string contractorName = ContractorAssigned == null ? "No Contractor" : ContractorAssigned.FullName;
             string status = Completed ? "Completed" : "Not Complete";
-            return $"({ID}) - {Title} (status) | {Date.Date.ToString("yyyy-MM-dd")} | ${Cost} | {contractorName}";
+            return $"({ID}) - {Title} ({status}) | {Date.Date.ToString("yyyy-MM-dd")} | ${Cost} | {contractorName}";
         }
 
         private static string GenerateID(int length = 5)
