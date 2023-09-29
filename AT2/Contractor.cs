@@ -121,16 +121,7 @@ namespace AT2
 
         public override string ToString()
         {
-            string availability = IsAvailable ? "Available" : "Not Avilable";
-            if (IsAvailable)
-            {
-                return $"({ID}) - {FullName} | ${HourlyWage} | {availability}";
-            }
-            else
-            {
-                return $"({ID}) - {FullName} | ${HourlyWage} | {availability} (Start Date: {StartDate.Value.ToString("yyyy-MM-dd")})";
-            }
-            
+            return $"{ID} - {FullName}";
         }
 
         private static string GenerateID(int length = 5)

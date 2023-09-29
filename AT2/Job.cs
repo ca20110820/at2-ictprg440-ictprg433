@@ -170,9 +170,7 @@ namespace AT2
 
         public override string ToString()
         {
-            string contractorName = ContractorAssigned == null ? "No Contractor" : ContractorAssigned.FullName;
-            string status = Completed ? "Completed" : "Not Complete";
-            return $"({ID}) - {Title} ({status}) | {Date.Date.ToString("yyyy-MM-dd")} | ${Cost} | {contractorName}";
+            return $"{ID} - {Title}";
         }
 
         private static string GenerateID(int length = 5)
