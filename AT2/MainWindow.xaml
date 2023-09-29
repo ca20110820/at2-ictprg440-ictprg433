@@ -91,7 +91,7 @@
             <TabControl Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
                 <TabItem x:Name="tabitemContractor" Header="Contractor">
                     <!-- Contractor DataGrid -->
-                    <DataGrid x:Name="datagridContractor" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid x:Name="datagridContractor" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="datagridContractor_SelectionChanged">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
                             <DataGridTextColumn Header="Name" Binding="{Binding FullName}" />
@@ -101,7 +101,7 @@
                                 </DataGridTextColumn.Binding>
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="Hourly Wage" Binding="{Binding HourlyWage}" />
-                            <DataGridCheckBoxColumn Header="Is Available" Binding="{Binding IsAvailable}" />
+                            <DataGridTextColumn Header="Is Available" Binding="{Binding IsAvailable}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
@@ -116,8 +116,8 @@
                                     <Binding Path="Date" StringFormat="dd/MM/yyyy" />
                                 </DataGridTextColumn.Binding>
                             </DataGridTextColumn>
-                            <DataGridCheckBoxColumn Header="Status" Binding="{Binding Completed}" />
-                            <DataGridCheckBoxColumn Header="Contractor" Binding="{Binding ContractorAssigned}" />
+                            <DataGridTextColumn Header="Status" Binding="{Binding Completed}" />
+                            <DataGridTextColumn Header="Contractor" Binding="{Binding ContractorAssigned}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>

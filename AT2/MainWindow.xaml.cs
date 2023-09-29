@@ -45,6 +45,21 @@ namespace AT2
             recruitmentSystem.AssignJob(recruitmentSystem.GetJobs().ToArray()[1], recruitmentSystem.GetContractors().ToArray()[1]);
 
             recruitmentSystem.CompleteJob(recruitmentSystem.GetJobs().ToArray()[1]);
+
+            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();
+            datagridJob.ItemsSource = recruitmentSystem.GetJobs();
+        }
+
+        private void datagridContractor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Contractor selectedContractor = (Contractor)datagridContractor.SelectedItem;
+
+            // Update and Change the Forms in Contractor Group
+            txtbxFirstName.Text = selectedContractor.FirstName;
+            txtbxLastName.Text = selectedContractor.LastName;
+            datepickerStartDate.SelectedDate = selectedContractor.StartDate;
+            txtbxHourlyWage.Text = selectedContractor.HourlyWage.ToString("0.##");
+            labelAvailability.Content = selectedContractor.IsAvailable ? "Status: Available" : "Status: Not Available";
         }
     }
 }
