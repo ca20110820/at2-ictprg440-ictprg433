@@ -61,5 +61,19 @@ namespace AT2
             txtbxHourlyWage.Text = selectedContractor.HourlyWage.ToString("0.##");
             labelAvailability.Content = selectedContractor.IsAvailable ? "Status: Available" : "Status: Not Available";
         }
+
+        private void datagridJob_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Job selectedJob = (Job)datagridJob.SelectedItem;
+
+            comboboxContractorAssigned.ItemsSource = recruitmentSystem.GetContractors();
+
+            // Update and Change the Forms in Job Group
+            txtbxTitle.Text = selectedJob.Title;
+            datepickerDate.SelectedDate = selectedJob.Date;
+            txtbxCost.Text = selectedJob.Cost.ToString("0.##");
+            comboboxCompleted.SelectedIndex = selectedJob.Completed ? 0 : 1;  // 0->"Completed" and 1-> "Not Complete"
+            comboboxContractorAssigned.SelectedItem = selectedJob.ContractorAssigned != null ? selectedJob.ContractorAssigned : null;
+        }
     }
 }
