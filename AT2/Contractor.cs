@@ -27,7 +27,7 @@ namespace AT2
                 }
                 else
                 {
-                    firstName = value;
+                    firstName = value.Trim();
                 }
             }
         }
@@ -45,7 +45,7 @@ namespace AT2
                 }
                 else
                 {
-                    lastName = value;
+                    lastName = value.Trim();
                 }
             }
         }

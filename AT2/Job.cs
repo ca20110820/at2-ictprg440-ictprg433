@@ -43,7 +43,7 @@ namespace AT2
                 {
                     throw new Exception("Title cannot be an empty string!");
                 }
-                title = value;
+                title = value.Trim();
             }
         }
 

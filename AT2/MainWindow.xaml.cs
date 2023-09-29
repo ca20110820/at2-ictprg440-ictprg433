@@ -109,5 +109,30 @@ namespace AT2
             datagridContractor.ItemsSource = null;
             datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
         }
+
+        private void btnRemoveContractor_Click(object sender, RoutedEventArgs e)
+        {
+            Contractor selectedContractor = (Contractor)datagridContractor.SelectedItem;
+
+            if (selectedContractor == null)  // Warn user if no selection
+            {
+                MessageBox.Show("Please Select a Contractor to Remove", "Warn");
+                tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
+                return;
+            }
+
+            try
+            {
+                recruitmentSystem.RemoveContractor(selectedContractor);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Error");
+                return;
+            }
+            
+            datagridContractor.ItemsSource = null;
+            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+        }
     }
 }
