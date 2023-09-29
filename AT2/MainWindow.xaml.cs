@@ -54,6 +54,14 @@ namespace AT2
         {
             Contractor selectedContractor = (Contractor)datagridContractor.SelectedItem;
 
+            if (selectedContractor == null)  // Scenario of mis-selection
+            {
+                tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
+                datagridContractor.ItemsSource = null;
+                datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+                return;
+            }
+
             // Update and Change the Forms in Contractor Group
             txtbxFirstName.Text = selectedContractor.FirstName;
             txtbxLastName.Text = selectedContractor.LastName;
@@ -65,6 +73,14 @@ namespace AT2
         private void datagridJob_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Job selectedJob = (Job)datagridJob.SelectedItem;
+
+            if (selectedJob == null)  // Scenario of mis-selection
+            {
+                tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
+                datagridJob.ItemsSource = null;
+                datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+                return;
+            }
 
             comboboxContractorAssigned.ItemsSource = recruitmentSystem.GetContractors();
 
