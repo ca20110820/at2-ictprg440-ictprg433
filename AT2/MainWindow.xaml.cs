@@ -40,6 +40,9 @@ namespace AT2
             recruitmentSystem.AddJob(new Job("Data Scientist", new DateTime(2024, 1, 5), 100000));
             recruitmentSystem.AddJob(new Job("Data Scientist", new DateTime(2024, 1, 5), 100000));
             recruitmentSystem.AddJob(new Job("DevOps Specialist", new DateTime(2024, 1, 16), 90000));
+
+            listviewContractor.ItemsSource = recruitmentSystem.GetContractors();
+            listviewJob.ItemsSource = recruitmentSystem.GetJobs();
         }
     }
 }
