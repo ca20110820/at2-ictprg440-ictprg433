@@ -11,10 +11,11 @@ namespace AT2
     {
         private string uid;
         private string title;
+        private DateTime date;
         private double cost;
         private bool completed = false;
         private Contractor? contractorAssigned = null;
-        
+
         public string ID
         {
             get 
@@ -47,7 +48,21 @@ namespace AT2
             }
         }
 
-        public DateTime Date { get; set; }
+        public DateTime Date
+        {
+            get
+            {
+                return date;
+            }
+            set
+            {
+                if (value.Date <= DateTime.Now.Date)  // If the New Date Value is Older than Date Now, throw error
+                {
+                    throw new Exception($"Job Date cannot be equal or older than date now {DateTime.Now.Date.ToString("dd/MM/yyyy")}");
+                }
+                date = value;
+            }
+        }
 
         public double Cost
         {
