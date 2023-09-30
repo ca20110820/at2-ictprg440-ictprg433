@@ -61,6 +61,11 @@ namespace AT2
                     throw new Exception($"Job Date cannot be equal or older than date now {DateTime.Now.Date.ToString("dd/MM/yyyy")}");
                 }
                 date = value;
+                // Update ContractorAssigned, if exist
+                if (ContractorAssigned != null)
+                {
+                    ContractorAssigned.StartDate = date;
+                }
             }
         }
 
