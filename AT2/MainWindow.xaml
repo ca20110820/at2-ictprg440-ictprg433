@@ -62,7 +62,7 @@
                         <ComboBoxItem Content="Not Complete"/>
                     </ComboBox>
                     <Label Content="Contractor Assigned" FontWeight="Bold"/>
-                    <ComboBox x:Name="comboboxContractorAssigned"/>
+                    <ComboBox x:Name="comboboxContractorAssigned" SelectionChanged="comboboxContractorAssigned_SelectionChanged"/>
                 </StackPanel>
             </GroupBox>
 

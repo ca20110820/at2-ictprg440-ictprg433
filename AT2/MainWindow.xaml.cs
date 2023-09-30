@@ -271,5 +271,35 @@ namespace AT2
             datagridJob.ItemsSource = null;
             datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
         }
+
+        private void comboboxContractorAssigned_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Contractor selectedContractor = (Contractor)comboboxContractorAssigned.SelectedItem;  // Changed ContractorAssigned - Current State
+            Job selectedJob = (Job)datagridJob.SelectedItem;  // Get Selected Job
+
+            if (selectedJob is null)  // Check if no Job selected
+            {
+                return;
+            }
+            if (selectedJob.ContractorAssigned == selectedContractor)
+            {
+                return;
+            }
+
+            try
+            {
+                recruitmentSystem.AssignJob(selectedJob, selectedContractor);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Error");
+                return;
+            }
+
+            datagridContractor.ItemsSource = null;
+            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+            datagridJob.ItemsSource = null;
+            datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+        }
     }
 }
