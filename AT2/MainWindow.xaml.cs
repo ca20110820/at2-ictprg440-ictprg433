@@ -205,5 +205,47 @@ namespace AT2
             datagridJob.ItemsSource = null;
             datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
         }
+
+        private void btnUpdateJob_Click(object sender, RoutedEventArgs e)
+        {
+            comboboxContractorAssigned.ItemsSource = null;
+            comboboxContractorAssigned.ItemsSource = recruitmentSystem.GetJobs();  // List Jobs for ComboBox
+
+            Job selectedJob = (Job)datagridJob.SelectedItem;  // Get Selected Job
+
+            if (selectedJob == null)  // Warn user if no selection
+            {
+                MessageBox.Show("Please Select a Job to Update", "Warn");
+                tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
+                return;
+            }
+
+            try
+            {
+                selectedJob.Title = txtbxTitle.Text;
+                selectedJob.Date = datepickerDate.SelectedDate.Value;
+                selectedJob.Cost = Math.Round(double.Parse(txtbxCost.Text), 2, MidpointRounding.AwayFromZero);
+                selectedJob.ContractorAssigned = (Contractor)comboboxContractorAssigned.SelectedItem;
+
+                switch (comboboxCompleted.SelectedIndex)
+                {
+                    case 0:
+                        selectedJob.Completed = true;
+                        break;
+                    case 1:
+                        selectedJob.Completed = false;
+                        break;
+                }
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Error");
+                return;
+            }
+
+            datagridJob.ItemsSource = null;
+            datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+
+        }
     }
 }
