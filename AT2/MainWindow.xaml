@@ -22,7 +22,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="0.9*"/>
-                <RowDefinition Height="0.3*"/>
             </Grid.RowDefinitions>
 
             <!-- Contractor Form -->
@@ -56,13 +55,19 @@
                     <DatePicker x:Name="datepickerDate" />
                     <Label Content="Cost" FontWeight="Bold"/>
                     <TextBox x:Name="txtbxCost" />
-                    <Label Content="Status" FontWeight="Bold"/>
-                    <ComboBox x:Name="comboboxCompleted" SelectionChanged="comboboxCompleted_SelectionChanged">
-                        <ComboBoxItem Content="Completed"/>
-                        <ComboBoxItem Content="Not Complete"/>
-                    </ComboBox>
-                    <Label Content="Contractor Assigned" FontWeight="Bold"/>
-                    <ComboBox x:Name="comboboxContractorAssigned" SelectionChanged="comboboxContractorAssigned_SelectionChanged"/>
+
+                    <Border Background="#FFA5D8FF" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,8,8">
+                        <StackPanel Height="115">
+                            <Label Content="Status" FontWeight="Bold"/>
+                            <ComboBox x:Name="comboboxCompleted" SelectionChanged="comboboxCompleted_SelectionChanged" Margin="10,0,10,0">
+                                <ComboBoxItem Content="Completed"/>
+                                <ComboBoxItem Content="Not Complete"/>
+                            </ComboBox>
+                            <Label Content="Contractor Assigned" FontWeight="Bold"/>
+                            <ComboBox x:Name="comboboxContractorAssigned" SelectionChanged="comboboxContractorAssigned_SelectionChanged" Margin="10,0,10,0"/>
+                        </StackPanel>
+                    </Border>
+                    
                 </StackPanel>
             </GroupBox>
 
