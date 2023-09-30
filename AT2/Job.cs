@@ -96,9 +96,9 @@ namespace AT2
             }
             set
             {
-                if (completed)
+                if (completed)  // If job is already in a completed state, cannot assign a new contractor. Throw an error.
                 {
-                    contractorAssigned = null;
+                    throw new Exception("Cannot assign a contractor to a completed job!");
                 }
 
                 if (contractorAssigned == null)
