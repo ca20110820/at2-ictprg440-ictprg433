@@ -160,6 +160,8 @@ namespace AT2
                 return;
             }
 
+            datagridJob.ItemsSource = null;
+            datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
             datagridContractor.ItemsSource = null;
             datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
         }
