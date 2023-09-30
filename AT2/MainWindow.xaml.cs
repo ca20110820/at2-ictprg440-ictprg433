@@ -238,5 +238,38 @@ namespace AT2
             datagridJob.ItemsSource = null;
             datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
         }
+
+        private void comboboxCompleted_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Index Changed - Current State
+            int selectedIndex = comboboxCompleted.SelectedIndex;  // 0->"Completed" and 1-> "Not Complete"
+
+            Job selectedJob = (Job)datagridJob.SelectedItem;  // Get Selected Job, if selected (could be null)
+
+            if (selectedJob is null)
+            {
+                tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
+                MessageBox.Show("Please Select a Job", "Warn");
+                return;
+            }
+
+            if (selectedIndex == 0)  // Job Completed (from 1 to 0)
+            {
+                try
+                {
+                    recruitmentSystem.CompleteJob(selectedJob);
+                }
+                catch (Exception error)
+                {
+                    MessageBox.Show(error.Message, "Error");
+                    return;
+                }
+            }
+
+            datagridContractor.ItemsSource = null;
+            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+            datagridJob.ItemsSource = null;
+            datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+        }
     }
 }

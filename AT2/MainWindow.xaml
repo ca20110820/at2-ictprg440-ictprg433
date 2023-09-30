@@ -57,7 +57,7 @@
                     <Label Content="Cost" FontWeight="Bold"/>
                     <TextBox x:Name="txtbxCost" />
                     <Label Content="Status" FontWeight="Bold"/>
-                    <ComboBox x:Name="comboboxCompleted">
+                    <ComboBox x:Name="comboboxCompleted" SelectionChanged="comboboxCompleted_SelectionChanged">
                         <ComboBoxItem Content="Completed"/>
                         <ComboBoxItem Content="Not Complete"/>
                     </ComboBox>
@@ -117,7 +117,7 @@
                                 </DataGridTextColumn.Binding>
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="Cost" Binding="{Binding Cost}" />
-                            <DataGridTextColumn Header="Status" Binding="{Binding Completed}" />
+                            <DataGridTextColumn Header="Is Completed" Binding="{Binding Completed}" />
                             <DataGridTextColumn Header="Contractor" Binding="{Binding ContractorAssigned}" />
                         </DataGrid.Columns>
                     </DataGrid>
