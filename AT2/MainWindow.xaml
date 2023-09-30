@@ -72,8 +72,6 @@
                 <Button x:Name="btnUpdateJob" Content="Update Job" Margin="10,10,10,5" Click="btnUpdateJob_Click"/>
                 <Button x:Name="btnRemoveJob" Content="Remove Job" Margin="10,10,10,5" Click="btnRemoveJob_Click"/>
             </StackPanel>
-
-            <Button x:Name="btnRun" Content="Run" Grid.Row="2" Grid.Column="1" />
         </Grid>
 
         <!-- Set Root Grid Properties for Views and Filters -->
