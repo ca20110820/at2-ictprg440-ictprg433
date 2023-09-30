@@ -116,6 +116,7 @@
                                     <Binding Path="Date" StringFormat="dd/MM/yyyy" />
                                 </DataGridTextColumn.Binding>
                             </DataGridTextColumn>
+                            <DataGridTextColumn Header="Cost" Binding="{Binding Cost}" />
                             <DataGridTextColumn Header="Status" Binding="{Binding Completed}" />
                             <DataGridTextColumn Header="Contractor" Binding="{Binding ContractorAssigned}" />
                         </DataGrid.Columns>
