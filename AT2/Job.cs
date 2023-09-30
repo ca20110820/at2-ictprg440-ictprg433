@@ -88,7 +88,7 @@ namespace AT2
                     }
                     else  // i.e. Assigning a New Contractor
                     {
-                        if (value.IsAvailable)  // Assume that the New Contractor is Available, otherwise throw error
+                        if (!value.IsAvailable)  // Assume that the New Contractor is Available, otherwise throw error
                         {
                             throw new Exception($"{value.FullName} is Working!");
                         }
@@ -105,7 +105,7 @@ namespace AT2
                     }
                     else  // i.e. We are replacing the Current Contractor with a New One
                     {
-                        if (value.IsAvailable)  // Assume that the New Contractor is Available, otherwise throw error
+                        if (!value.IsAvailable)  // Assume that the New Contractor is Available, otherwise throw error
                         {
                             throw new Exception($"{value.FullName} is Working!");
                         }
@@ -127,7 +127,7 @@ namespace AT2
             {
                 if (!completed && value)  // i.e. Job is Now Completed
                 {
-                    if (contractorAssigned != null)
+                    if (contractorAssigned == null)
                     {
                         throw new Exception("Cannot complete a job without any assigned contractor!");
                     }
