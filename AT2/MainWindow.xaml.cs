@@ -208,9 +208,6 @@ namespace AT2
 
         private void btnUpdateJob_Click(object sender, RoutedEventArgs e)
         {
-            comboboxContractorAssigned.ItemsSource = null;
-            comboboxContractorAssigned.ItemsSource = recruitmentSystem.GetJobs();  // List Jobs for ComboBox
-
             Job selectedJob = (Job)datagridJob.SelectedItem;  // Get Selected Job
 
             if (selectedJob == null)  // Warn user if no selection
@@ -222,20 +219,11 @@ namespace AT2
 
             try
             {
+                // Only Perform Changes on "Basic" Properties. `Completed` and `ContractorAssigned` will be 
+                // implemented in different event-handlers.
                 selectedJob.Title = txtbxTitle.Text;
                 selectedJob.Date = datepickerDate.SelectedDate.Value;
                 selectedJob.Cost = Math.Round(double.Parse(txtbxCost.Text), 2, MidpointRounding.AwayFromZero);
-                selectedJob.ContractorAssigned = (Contractor)comboboxContractorAssigned.SelectedItem;
-
-                switch (comboboxCompleted.SelectedIndex)
-                {
-                    case 0:
-                        selectedJob.Completed = true;
-                        break;
-                    case 1:
-                        selectedJob.Completed = false;
-                        break;
-                }
             }
             catch (Exception error)
             {
@@ -243,9 +231,10 @@ namespace AT2
                 return;
             }
 
+            datagridContractor.ItemsSource = null;
+            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
             datagridJob.ItemsSource = null;
             datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
-
         }
     }
 }
