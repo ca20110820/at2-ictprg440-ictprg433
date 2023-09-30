@@ -180,5 +180,30 @@ namespace AT2
             datagridJob.ItemsSource = null;
             datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
         }
+
+        private void btnRemoveJob_Click(object sender, RoutedEventArgs e)
+        {
+            Job selectedJob = (Job)datagridJob.SelectedItem;
+
+            if (selectedJob == null)  // Warn user if no selection
+            {
+                MessageBox.Show("Please Select a Job to Remove", "Warn");
+                tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
+                return;
+            }
+
+            try
+            {
+                recruitmentSystem.RemoveJob(selectedJob);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Error");
+                return;
+            }
+
+            datagridJob.ItemsSource = null;
+            datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+        }
     }
 }
