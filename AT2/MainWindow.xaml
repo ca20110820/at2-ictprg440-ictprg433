@@ -43,7 +43,7 @@
             <!-- Contractor Buttons -->
             <StackPanel Grid.Row="1" Grid.Column="0">
                 <Button x:Name="btnAddContractor" Content="Add Contractor" Margin="10,10,10,5" Click="btnAddContractor_Click"/>
-                <Button x:Name="btnUpdateContractor" Content="Update Contractor" Margin="10,10,10,5"/>
+                <Button x:Name="btnUpdateContractor" Content="Update Contractor" Margin="10,10,10,5" Click="btnUpdateContractor_Click"/>
                 <Button x:Name="btnRemoveContractor" Content="Remove Contractor" Margin="10,10,10,5" Click="btnRemoveContractor_Click"/>
             </StackPanel>
             

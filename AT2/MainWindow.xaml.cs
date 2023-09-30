@@ -135,5 +135,33 @@ namespace AT2
             datagridContractor.ItemsSource = null;
             datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
         }
+
+        private void btnUpdateContractor_Click(object sender, RoutedEventArgs e)
+        {
+            Contractor selectedContractor = (Contractor)datagridContractor.SelectedItem;  // Get Selected Contractor
+
+            if (selectedContractor == null)  // Warn user if no selection
+            {
+                MessageBox.Show("Please Select a Contractor to Update", "Warn");
+                tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
+                return;
+            }
+
+            try
+            {
+                selectedContractor.FirstName = txtbxFirstName.Text;
+                selectedContractor.LastName = txtbxLastName.Text;
+                //selectedContractor.StartDate = datepickerStartDate.SelectedDate;
+                selectedContractor.HourlyWage = Math.Round(double.Parse(txtbxHourlyWage.Text), 2, MidpointRounding.AwayFromZero);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Error");
+                return;
+            }
+
+            datagridContractor.ItemsSource = null;
+            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+        }
     }
 }
