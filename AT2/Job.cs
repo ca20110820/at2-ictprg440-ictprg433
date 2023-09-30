@@ -88,7 +88,10 @@ namespace AT2
                     }
                     else  // i.e. Assigning a New Contractor
                     {
-                        Debug.Assert(value.IsAvailable, $"{value.FullName} is Working!");  // Assume that the New Contractor is Available, otherwise throw error
+                        if (value.IsAvailable)  // Assume that the New Contractor is Available, otherwise throw error
+                        {
+                            throw new Exception($"{value.FullName} is Working!");
+                        }
                         value.StartDate = Date;  // Update StartDate of Contractor object
                         contractorAssigned = value;
                     }
@@ -102,7 +105,10 @@ namespace AT2
                     }
                     else  // i.e. We are replacing the Current Contractor with a New One
                     {
-                        Debug.Assert(value.IsAvailable, $"{value.FullName} is Working!");  // Assume that the New Contractor is Available, otherwise throw error
+                        if (value.IsAvailable)  // Assume that the New Contractor is Available, otherwise throw error
+                        {
+                            throw new Exception($"{value.FullName} is Working!");
+                        }
                         contractorAssigned.StartDate = null;  // Reset Old Contractor object StartDate back to null
                         value.StartDate = Date;  // Update StartDate of New Contractor object
                         contractorAssigned = value;  // Set contractorAssigned to the New Contractor object
@@ -121,8 +127,10 @@ namespace AT2
             {
                 if (!completed && value)  // i.e. Job is Now Completed
                 {
-                    Debug.Assert(contractorAssigned != null, "Cannot complete a job without any assigned contractor!");
-
+                    if (contractorAssigned != null)
+                    {
+                        throw new Exception("Cannot complete a job without any assigned contractor!");
+                    }
                     // Update Properties of Contractor
                     contractorAssigned.StartDate = null;  // Make the Contractor Available
                     contractorAssigned = null;  // Set contractorAssigned to null
