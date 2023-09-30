@@ -137,7 +137,8 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <ComboBox x:Name="comboboxFilters" Margin="10,25,10,50" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+                <ComboBox x:Name="comboboxFilters" Margin="10,25,10,50" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" SelectionChanged="comboboxFilters_SelectionChanged">
+                    <ComboBoxItem Content=""/>
                     <ComboBoxItem Content="Get All Contractors"/>
                     <ComboBoxItem Content="Get All Jobs"/>
                     <ComboBoxItem Content="Get Available Contractors"/>

@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -300,6 +301,59 @@ namespace AT2
             datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
             datagridJob.ItemsSource = null;
             datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+        }
+
+        private void comboboxFilters_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int selectedIndex = comboboxFilters.SelectedIndex;
+
+            switch (selectedIndex)
+            {
+                case 0:  // Empty
+                    // Back to Basic View
+                    datagridJob.ItemsSource = null;
+                    datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+                    datagridContractor.ItemsSource = null;
+                    datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+                    tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
+                    return; 
+                case 1:  // Get All Contractors
+                    datagridContractor.ItemsSource = null;
+                    datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+                    tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
+                    return;
+                case 2:  // Get All Jobs
+                    datagridJob.ItemsSource = null;
+                    datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+                    tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
+                    return;
+                case 3:  // Get Available Contractors
+                    datagridContractor.ItemsSource = null;
+                    datagridContractor.ItemsSource = recruitmentSystem.GetAvailableContractors();  // Update the Contractor DataGrid
+                    tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
+                    return;
+                case 4:  // Get Unassigned Jobs
+                    datagridJob.ItemsSource = null;
+                    datagridJob.ItemsSource = recruitmentSystem.GetUnassignedJobs();  // Update the Job DataGrid
+                    tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
+                    return;
+                case 5:  // Get Jobs By Cost
+                    try
+                    {
+                        datagridJob.ItemsSource = null;
+                        datagridJob.ItemsSource = recruitmentSystem.GetJobByCost(double.Parse(txtMinValue.Text), double.Parse(txtMaxValue.Text));  // Update the Job DataGrid
+                    }
+                    catch (Exception error)
+                    {
+                        MessageBox.Show(error.Message, "Error");
+                    }
+                    finally
+                    {
+                        tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
+                    }
+                    return;
+
+            }
         }
     }
 }
