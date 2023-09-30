@@ -68,7 +68,7 @@
 
             <!-- Job Buttons -->
             <StackPanel Grid.Row="1" Grid.Column="1">
-                <Button x:Name="btnAddJob" Content="Add Job" Margin="10,10,10,5"/>
+                <Button x:Name="btnAddJob" Content="Add Job" Margin="10,10,10,5" Click="btnAddJob_Click"/>
                 <Button x:Name="btnUpdateJob" Content="Update Job" Margin="10,10,10,5"/>
                 <Button x:Name="btnRemoveJob" Content="Remove Job" Margin="10,10,10,5"/>
             </StackPanel>

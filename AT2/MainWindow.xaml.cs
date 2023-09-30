@@ -163,5 +163,22 @@ namespace AT2
             datagridContractor.ItemsSource = null;
             datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
         }
+
+        private void btnAddJob_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Job newJob = new Job(txtbxTitle.Text, datepickerDate.SelectedDate.Value, double.Parse(txtbxCost.Text));
+                recruitmentSystem.AddJob(newJob);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Error");
+                return;
+            }
+            tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
+            datagridJob.ItemsSource = null;
+            datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+        }
     }
 }
