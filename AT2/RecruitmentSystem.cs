@@ -32,9 +32,26 @@ namespace AT2
         {
             if (!contractor.IsAvailable)  // Contractor is currently working and not available
             {
-                throw new Exception($"We cannot remove {contractor}! He/She is currently working.");
+                //throw new Exception($"We cannot remove {contractor}! He/She is currently working.");
+                // Find the Job where the Contractor is currently working
+                // Desassign the Contractor from the Job
+                foreach (Job job in jobs)
+                {
+                    if (job == null)
+                    {
+                        return;
+                    }
+                    else 
+                    {
+                        if (job.ContractorAssigned.ID == contractor.ID)
+                        {
+                            job.ContractorAssigned = null;  // Deassign the Contractor from the job
+                            break;
+                        }
+                    }
+                }
             }
-            contractors.Remove(contractor);
+            contractors.Remove(contractor);  // Remove from the list
         }
 
         public void AddJob(Job job)
