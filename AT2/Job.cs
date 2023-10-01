@@ -28,7 +28,7 @@ namespace AT2
                 {
                     throw new Exception("Job ID cannot be an empty string!");
                 }
-                uid = value;
+                uid = value.Trim();
             }
         }
 

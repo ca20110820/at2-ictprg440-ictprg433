@@ -77,7 +77,7 @@ namespace AT2
                 {
                     throw new ArgumentException("ID Cannot be an empty string!");
                 }
-                uid = value;
+                uid = value.Trim();
             }
         }
         public string FullName
