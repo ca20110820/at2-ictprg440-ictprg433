@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using static System.Formats.Asn1.AsnWriter;
 
 namespace AT2
@@ -54,6 +55,7 @@ namespace AT2
         public void RemoveJob(Job job)
         {
             // Note: Optional, Not part of requirements.
+            job.ContractorAssigned = null;  // Reset to null to Update Contractor
             jobs.Remove(job);
         }
 

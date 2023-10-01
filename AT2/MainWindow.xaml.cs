@@ -205,6 +205,8 @@ namespace AT2
                 return;
             }
 
+            datagridContractor.ItemsSource = null;
+            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
             datagridJob.ItemsSource = null;
             datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
         }
