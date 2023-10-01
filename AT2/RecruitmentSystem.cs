@@ -55,8 +55,21 @@ namespace AT2
         public void RemoveJob(Job job)
         {
             // Note: Optional, Not part of requirements.
-            job.ContractorAssigned = null;  // Reset to null to Update Contractor
-            jobs.Remove(job);
+            if (!job.Completed && job.ContractorAssigned != null)
+            {
+                job.ContractorAssigned = null;  // Reset to null to Update Contractor
+                jobs.Remove(job);
+            }
+            else if (job.Completed || (!job.Completed && job.ContractorAssigned == null))
+            {
+                jobs.Remove(job);
+            }
+            else
+            {
+                throw new Exception("Case that we have not considered");
+            }
+
+            
         }
 
         public void AssignJob(Job job, Contractor contractor)
