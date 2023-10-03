@@ -308,7 +308,8 @@ namespace AT2
             datagridContractor.ItemsSource = null;
             datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
             datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+            datagridJob.ItemsSource = recruitmentSystem.Jobs.Where(x => x.ContractorAssigned is Contractor);  // Update the Job DataGrid
+            comboboxFilters.SelectedIndex = 6;
         }
 
         private void comboboxFilters_SelectionChanged(object sender, SelectionChangedEventArgs e)
