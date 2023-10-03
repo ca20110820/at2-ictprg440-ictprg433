@@ -353,7 +353,9 @@ namespace AT2
                     }
                     catch (Exception error)
                     {
-                        MessageBox.Show(error.Message, "Error");
+                        MessageBox.Show("Minimum and Maximum Values must be appropriate numbers!", "Error");
+                        datagridJob.ItemsSource = recruitmentSystem.Jobs;
+                        comboboxFilters.SelectedItem = null;
                     }
                     finally
                     {
