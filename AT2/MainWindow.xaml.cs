@@ -110,6 +110,7 @@ namespace AT2
             tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
             datagridContractor.ItemsSource = null;
             datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
+            DeselectContractorForm();
         }
 
         private void btnRemoveContractor_Click(object sender, RoutedEventArgs e)
@@ -137,6 +138,7 @@ namespace AT2
             datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
             datagridContractor.ItemsSource = null;
             datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
+            DeselectContractorForm();
         }
 
         private void btnUpdateContractor_Click(object sender, RoutedEventArgs e)
@@ -184,6 +186,7 @@ namespace AT2
             tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
             datagridJob.ItemsSource = null;
             datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+            DeselectJobForm();
         }
 
         private void btnRemoveJob_Click(object sender, RoutedEventArgs e)
@@ -211,6 +214,7 @@ namespace AT2
             datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
             datagridJob.ItemsSource = null;
             datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+            DeselectJobForm();
         }
 
         private void btnUpdateJob_Click(object sender, RoutedEventArgs e)
@@ -358,6 +362,22 @@ namespace AT2
                     return;
 
             }
+        }
+
+        private void DeselectContractorForm()
+        {
+            txtbxFirstName.Text = string.Empty;
+            txtbxLastName.Text = string.Empty;
+            datepickerStartDate.SelectedDate = null;
+            txtbxHourlyWage.Text = string.Empty;
+        }
+        private void DeselectJobForm()
+        {
+            txtbxTitle.Text = string.Empty;
+            datepickerDate.SelectedDate = null;
+            txtbxCost.Text = string.Empty;
+            //comboboxCompleted.SelectedItem = null;
+            //comboboxContractorAssigned.SelectedItem = null;
         }
     }
 }
