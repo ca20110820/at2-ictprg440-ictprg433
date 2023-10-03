@@ -14,6 +14,9 @@ namespace AT2
         private List<Contractor> contractors = new();
         private List<Job> jobs = new();
 
+        public List<Contractor> Contractors { get { return contractors; } }
+        public List<Job> Jobs { get {  return jobs; } }
+
         public void AddContractor(Contractor contractor)
         {
             IEnumerable<Contractor> ids = 
@@ -97,16 +100,6 @@ namespace AT2
         public void CompleteJob(Job job)
         {
             job.Completed = true;
-        }
-
-        public List<Contractor> GetContractors()
-        {
-            return contractors;
-        }
-
-        public List<Job> GetJobs()
-        {
-            return jobs;
         }
 
         public List <Contractor> GetAvailableContractors()

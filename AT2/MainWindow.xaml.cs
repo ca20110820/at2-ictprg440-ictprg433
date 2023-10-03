@@ -43,13 +43,13 @@ namespace AT2
             recruitmentSystem.AddJob(new Job("Data Scientist", new DateTime(2024, 1, 5), 100000));
             recruitmentSystem.AddJob(new Job("DevOps Specialist", new DateTime(2024, 1, 16), 90000));
 
-            recruitmentSystem.AssignJob(recruitmentSystem.GetJobs().ToArray()[0], recruitmentSystem.GetContractors().ToArray()[0]);
-            recruitmentSystem.AssignJob(recruitmentSystem.GetJobs().ToArray()[1], recruitmentSystem.GetContractors().ToArray()[1]);
+            recruitmentSystem.AssignJob(recruitmentSystem.Jobs.ToArray()[0], recruitmentSystem.Contractors.ToArray()[0]);
+            recruitmentSystem.AssignJob(recruitmentSystem.Jobs.ToArray()[1], recruitmentSystem.Contractors.ToArray()[1]);
 
-            recruitmentSystem.CompleteJob(recruitmentSystem.GetJobs().ToArray()[1]);
+            recruitmentSystem.CompleteJob(recruitmentSystem.Jobs.ToArray()[1]);
 
-            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();
-            datagridJob.ItemsSource = recruitmentSystem.GetJobs();
+            datagridContractor.ItemsSource = recruitmentSystem.Contractors;
+            datagridJob.ItemsSource = recruitmentSystem.Jobs;
         }
 
         private void datagridContractor_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -60,7 +60,7 @@ namespace AT2
             {
                 tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
                 datagridContractor.ItemsSource = null;
-                datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+                datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
                 return;
             }
 
@@ -80,11 +80,11 @@ namespace AT2
             {
                 tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
                 datagridJob.ItemsSource = null;
-                datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+                datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
                 return;
             }
 
-            comboboxContractorAssigned.ItemsSource = recruitmentSystem.GetContractors();
+            comboboxContractorAssigned.ItemsSource = recruitmentSystem.Contractors;
 
             // Update and Change the Forms in Job Group
             txtbxTitle.Text = selectedJob.Title;
@@ -109,7 +109,7 @@ namespace AT2
             }
             tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
             datagridContractor.ItemsSource = null;
-            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+            datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
         }
 
         private void btnRemoveContractor_Click(object sender, RoutedEventArgs e)
@@ -134,9 +134,9 @@ namespace AT2
             }
 
             datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
             datagridContractor.ItemsSource = null;
-            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+            datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
         }
 
         private void btnUpdateContractor_Click(object sender, RoutedEventArgs e)
@@ -164,9 +164,9 @@ namespace AT2
             }
 
             datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
             datagridContractor.ItemsSource = null;
-            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+            datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
         }
 
         private void btnAddJob_Click(object sender, RoutedEventArgs e)
@@ -183,7 +183,7 @@ namespace AT2
             }
             tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
             datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
         }
 
         private void btnRemoveJob_Click(object sender, RoutedEventArgs e)
@@ -208,9 +208,9 @@ namespace AT2
             }
 
             datagridContractor.ItemsSource = null;
-            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+            datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
             datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
         }
 
         private void btnUpdateJob_Click(object sender, RoutedEventArgs e)
@@ -239,9 +239,9 @@ namespace AT2
             }
 
             datagridContractor.ItemsSource = null;
-            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+            datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
             datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
         }
 
         private void comboboxCompleted_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -272,9 +272,9 @@ namespace AT2
             }
 
             datagridContractor.ItemsSource = null;
-            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+            datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
             datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
         }
 
         private void comboboxContractorAssigned_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -302,9 +302,9 @@ namespace AT2
             }
 
             datagridContractor.ItemsSource = null;
-            datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+            datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
             datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
         }
 
         private void comboboxFilters_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -316,19 +316,19 @@ namespace AT2
                 case 0:  // Empty
                     // Back to Basic View
                     datagridJob.ItemsSource = null;
-                    datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+                    datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
                     datagridContractor.ItemsSource = null;
-                    datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+                    datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
                     tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
                     return; 
                 case 1:  // Get All Contractors
                     datagridContractor.ItemsSource = null;
-                    datagridContractor.ItemsSource = recruitmentSystem.GetContractors();  // Update the Contractor DataGrid
+                    datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
                     tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
                     return;
                 case 2:  // Get All Jobs
                     datagridJob.ItemsSource = null;
-                    datagridJob.ItemsSource = recruitmentSystem.GetJobs();  // Update the Job DataGrid
+                    datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
                     tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
                     return;
                 case 3:  // Get Available Contractors
