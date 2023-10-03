@@ -9,14 +9,29 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace AT2
 {
+    /// <summary>
+    /// Recruitment Management Tracker.
+    /// </summary>
     public class RecruitmentSystem
     {
         private List<Contractor> contractors = new();
         private List<Job> jobs = new();
 
+        /// <summary>
+        /// Gets the List of all the Contractors in the Recruitment System.
+        /// </summary>
         public List<Contractor> Contractors { get { return contractors; } }
+
+        /// <summary>
+        /// Gets the List of all the Jobs in the Recruitment System.
+        /// </summary>
         public List<Job> Jobs { get {  return jobs; } }
 
+        /// <summary>
+        /// Adds a New Contractor to the Recruitment System.
+        /// </summary>
+        /// <param name="contractor"></param>
+        /// <exception cref="Exception"></exception>
         public void AddContractor(Contractor contractor)
         {
             IEnumerable<Contractor> ids = 
@@ -31,6 +46,10 @@ namespace AT2
             contractors.Add(contractor);
         }
 
+        /// <summary>
+        /// Removes an existing Contractor in the Recruitment System.
+        /// </summary>
+        /// <param name="contractor"></param>
         public void RemoveContractor(Contractor contractor)
         {
             if (!contractor.IsAvailable)  // Contractor is currently working and not available
@@ -57,6 +76,11 @@ namespace AT2
             contractors.Remove(contractor);  // Remove from the list
         }
 
+        /// <summary>
+        /// Adds a New Job in the Recruitment System.
+        /// </summary>
+        /// <param name="job"></param>
+        /// <exception cref="Exception"></exception>
         public void AddJob(Job job)
         {
             IEnumerable<Job> ids =
@@ -72,6 +96,14 @@ namespace AT2
             jobs.Add(job);
         }
 
+        /// <summary>
+        /// Removes an existing Job in the Recruitment System.
+        /// </summary>
+        /// <remarks>
+        /// Allowed to remove jobs regardless of Completed Status and if there is a Contractor Assigned.
+        /// </remarks>
+        /// <param name="job"></param>
+        /// <exception cref="Exception"></exception>
         public void RemoveJob(Job job)
         {
             // Note: Optional, Not part of requirements.
@@ -92,31 +124,66 @@ namespace AT2
             
         }
 
+        /// <summary>
+        /// Assigns a Job with a Contractor.
+        /// </summary>
+        /// <remarks>
+        /// Allowed to assign any job with a contractor, as long as the contractor to-be-assigned is available (i.e. not currently working). 
+        /// Otherwise, a MessageBox will appear.
+        /// </remarks>
+        /// <param name="job"></param>
+        /// <param name="contractor"></param>
         public void AssignJob(Job job, Contractor contractor)
         {
             job.ContractorAssigned = contractor;
         }
 
+        /// <summary>
+        /// Change the Status of Job to Completed.
+        /// </summary>
+        /// <remarks>
+        /// Job's that are allowed to be updated to Completed status are the jobs with an assigned contractor.
+        /// </remarks>
+        /// <param name="job"></param>
         public void CompleteJob(Job job)
         {
             job.Completed = true;
         }
 
+        /// <summary>
+        /// Gets all the Available Contractors.
+        /// </summary>
+        /// <returns>Returns a List of Contractors.</returns>
         public List <Contractor> GetAvailableContractors()
         {
             return contractors.Where(x => x.IsAvailable).ToList();
         }
 
+        /// <summary>
+        /// Gets all Unassigned Jobs.
+        /// </summary>
+        /// <returns>Returns a List of Jobs</returns>
         public List<Job> GetUnassignedJobs()
         {
             return jobs.Where(x => !x.Completed && x.ContractorAssigned == null).ToList();
         }
 
+        /// <summary>
+        /// Gets all Assigned Jobs.
+        /// </summary>
+        /// <returns>Returns a List of Jobs.</returns>
         public List<Job> GetAssignedJobs()
         {
             return jobs.Where(x => !x.Completed && x.ContractorAssigned is Contractor).ToList();
         }
 
+        /// <summary>
+        /// Gets all Jobs with Cost between the given Minimum and Maximum values.
+        /// </summary>
+        /// <param name="minValue"></param>
+        /// <param name="maxValue"></param>
+        /// <returns>Returns a List of Jobs.</returns>
+        /// <exception cref="ArgumentException"></exception>
         public List<Job> GetJobByCost(double minValue, double maxValue)
         {
             if (minValue > maxValue)
