@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace AT2
 {
+    /// <summary>
+    /// Represents the Job object.
+    /// </summary>
     public class Job
     {
         private string uid;
@@ -16,6 +19,9 @@ namespace AT2
         private bool completed = false;
         private Contractor? contractorAssigned = null;
 
+        /// <summary>
+        /// Job's Unique ID.
+        /// </summary>
         public string ID
         {
             get 
@@ -32,6 +38,9 @@ namespace AT2
             }
         }
 
+        /// <summary>
+        /// Job Title.
+        /// </summary>
         public string Title
         {
             get
@@ -48,6 +57,10 @@ namespace AT2
             }
         }
 
+        /// <summary>
+        /// Job's Start Date.
+        /// This will be passed to the Contractor assigned to the job.
+        /// </summary>
         public DateTime Date
         {
             get
@@ -69,6 +82,9 @@ namespace AT2
             }
         }
 
+        /// <summary>
+        /// Job's Cost.
+        /// </summary>
         public double Cost
         {
             get
@@ -88,6 +104,10 @@ namespace AT2
             }
         }
 
+        /// <summary>
+        /// Represents the Contractor assigned to this Job.
+        /// Default to null in initialisation.
+        /// </summary>
         public Contractor? ContractorAssigned
         {
             get
@@ -137,6 +157,12 @@ namespace AT2
             }
         }
 
+        /// <summary>
+        /// Represents the current Status of the Job object. 
+        /// Value is true if the job is completed, otherwise false.
+        /// Default to false in initialisation.
+        /// Once Completed is set to true, it can never revert back to false.
+        /// </summary>
         public bool Completed
         {
             get
@@ -196,11 +222,20 @@ namespace AT2
             ContractorAssigned = contractor;
         }
 
+        /// <summary>
+        /// String representation of a Job object. 
+        /// </summary>
+        /// <returns>Returns a string with format "(ID) - Title".</returns>
         public override string ToString()
         {
             return $"{ID} - {Title}";
         }
 
+        /// <summary>
+        /// Comparing if two Jobs instances are the same, excluding the ID.
+        /// </summary>
+        /// <param name="otherItem"></param>
+        /// <returns>Returns true if two Job instances have same properties, otherwise false.</returns>
         public override bool Equals(object otherItem)
         {
             if (!(otherItem is Job))
@@ -223,6 +258,11 @@ namespace AT2
             }
         }
 
+        /// <summary>
+        /// Auxiliary method for generating random ID with a given length.
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns>Returns a string representing the Job's ID.</returns>
         private static string GenerateID(int length = 5)
         {
             Guid randomGuid = Guid.NewGuid();
