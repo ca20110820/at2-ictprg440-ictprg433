@@ -123,7 +123,11 @@ namespace AT2
         {
             if (minValue > maxValue)
             {
-                throw new ArgumentOutOfRangeException("Minimum Value cannot be greater than Maximum Value!");
+                throw new ArgumentException("Minimum Value cannot be greater than Maximum Value!");
+            }
+            if (minValue < 0 || maxValue < 0)
+            {
+                throw new ArgumentException("Minimum or Maximum values cannot be negative!");
             }
             return jobs.Where(x => minValue <= x.Cost && x.Cost <= maxValue).ToList();
         }
