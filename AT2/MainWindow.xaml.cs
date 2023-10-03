@@ -372,6 +372,9 @@ namespace AT2
             }
         }
 
+        /// <summary>
+        /// Deselect the Forms or Fields for Contractor.
+        /// </summary>
         private void DeselectContractorForm()
         {
             txtbxFirstName.Text = string.Empty;
@@ -379,6 +382,13 @@ namespace AT2
             datepickerStartDate.SelectedDate = null;
             txtbxHourlyWage.Text = string.Empty;
         }
+        
+        /// <summary>
+        /// Deselect the Forms or Fields for Job.
+        /// <remark>
+        /// Deselects everything except the ComboBoxes.
+        /// </remark>
+        /// </summary>
         private void DeselectJobForm()
         {
             txtbxTitle.Text = string.Empty;
