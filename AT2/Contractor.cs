@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AT2
 {
+    /// <summary>
+    /// Represents the Contractor object.
+    /// </summary>
     public class Contractor
     {
         private string uid;
@@ -13,6 +16,9 @@ namespace AT2
         private string lastName;
         private double hourlyWage;
 
+        /// <summary>
+        /// Contractor's First Name.
+        /// </summary>
         public string FirstName
         {
             get
@@ -31,6 +37,10 @@ namespace AT2
                 }
             }
         }
+        
+        /// <summary>
+        /// Contractor's Last Name.
+        /// </summary>
         public string LastName
         {
             get
@@ -49,7 +59,16 @@ namespace AT2
                 }
             }
         }
+        
+        /// <summary>
+        /// Contractor's Start Date for the Job, if assigned. 
+        /// Default to null in initialisation.
+        /// </summary>
         public DateTime? StartDate { get; set; }
+        
+        /// <summary>
+        /// Contractor's Hourly Wage.
+        /// </summary>
         public double HourlyWage 
         {
             get
@@ -68,6 +87,10 @@ namespace AT2
                 }
             }
         }
+        
+        /// <summary>
+        /// Contractor's Unique ID.
+        /// </summary>
         public string ID
         {
             get { return uid; }
@@ -80,6 +103,10 @@ namespace AT2
                 uid = value.Trim();
             }
         }
+        
+        /// <summary>
+        /// Contractor's Full Name (i.e. First Name and Last Name).
+        /// </summary>
         public string FullName
         {
             get
@@ -87,6 +114,11 @@ namespace AT2
                 return $"{firstName} {lastName}";
             }
         }
+
+        /// <summary>
+        /// Value is true if the Contractor is not assigned to a job (i.e. StartDate is null), otherwise false.
+        /// Default to false in initialisation.
+        /// </summary>
         public bool IsAvailable
         {
             get
@@ -119,11 +151,21 @@ namespace AT2
             StartDate = null;  // StartDate is null by default when instantiation
         }
 
+        /// <summary>
+        /// String representation of a Contractor object.
+        /// </summary>
+        /// <returns>Returns a string with format "(ID) - FullName".</returns>
         public override string ToString()
         {
             return $"{ID} - {FullName}";
         }
 
+        /// <summary>
+        /// Comparing if two Contractor instances are the same, excluding the ID.
+        /// It is possible to have two instances with same properties other than ID.
+        /// </summary>
+        /// <param name="otherItem"></param>
+        /// <returns>Returns true if two Contractor instances have same properties, otherwise false.</returns>
         public override bool Equals(object otherItem)
         {
             if (!(otherItem is Contractor))
@@ -146,6 +188,11 @@ namespace AT2
             }
         }
 
+        /// <summary>
+        /// Auxiliary method for generating random ID with a given length.
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns>Returns a string representing the Contractor's ID.</returns>
         private static string GenerateID(int length = 5)
         {
             Guid randomGuid = Guid.NewGuid();
