@@ -147,6 +147,7 @@
                     <ComboBoxItem Content="Get Available Contractors"/>
                     <ComboBoxItem Content="Get Unassigned Jobs"/>
                     <ComboBoxItem Content="Get Jobs By Cost"/>
+                    <ComboBoxItem Content="Get Assigned Jobs"/>
                 </ComboBox>
 
                 <TextBox x:Name="txtMinValue" Text="Min Value" Grid.Column="1" Grid.Row="0" Margin="20,30,20,45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />

@@ -112,6 +112,11 @@ namespace AT2
             return jobs.Where(x => !x.Completed && x.ContractorAssigned == null).ToList();
         }
 
+        public List<Job> GetAssignedJobs()
+        {
+            return jobs.Where(x => !x.Completed && x.ContractorAssigned is Contractor).ToList();
+        }
+
         public List<Job> GetJobByCost(double minValue, double maxValue)
         {
             if (minValue > maxValue)

@@ -362,6 +362,11 @@ namespace AT2
                         tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
                     }
                     return;
+                case 6:  // Get Assigned Jobs
+                    datagridJob.ItemsSource = null;
+                    datagridJob.ItemsSource = recruitmentSystem.GetAssignedJobs();  // Update the Job DataGrid
+                    tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
+                    return;
 
             }
         }
