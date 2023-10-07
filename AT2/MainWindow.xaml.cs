@@ -36,8 +36,8 @@ namespace AT2
             recruitmentSystem.AddContractor(new Contractor("Bill", "Gates", 80));
             recruitmentSystem.AddContractor(new Contractor("John", "Wick", 19));
 
-            recruitmentSystem.AddJob(new Job("Data Engineer", new DateTime(2023, 11, 5), 300000));
-            recruitmentSystem.AddJob(new Job("Network Engineer", new DateTime(2023, 10, 6), 96000));
+            recruitmentSystem.AddJob(new Job("Data Engineer", new DateTime(2024, 11, 5), 300000));
+            recruitmentSystem.AddJob(new Job("Network Engineer", new DateTime(2023, 12, 8), 96000));
             recruitmentSystem.AddJob(new Job("Network Programmer", new DateTime(2023, 12, 15), 82000));
             recruitmentSystem.AddJob(new Job("Data Scientist", new DateTime(2024, 1, 5), 100000));
             recruitmentSystem.AddJob(new Job("Data Scientist", new DateTime(2024, 1, 5), 100000));
