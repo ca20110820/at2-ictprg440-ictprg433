@@ -92,6 +92,11 @@ namespace AT2
             txtbxCost.Text = selectedJob.Cost.ToString("0.##");
             comboboxCompleted.SelectedIndex = selectedJob.Completed ? 0 : 1;  // 0->"Completed" and 1-> "Not Complete"
             comboboxContractorAssigned.SelectedItem = selectedJob.ContractorAssigned != null ? selectedJob.ContractorAssigned : null;
+
+            if (comboboxContractorAssigned.SelectedItem == null)
+            {
+                comboboxContractorAssigned.ItemsSource = recruitmentSystem.GetAvailableContractors();
+            }
         }
 
         private void btnAddContractor_Click(object sender, RoutedEventArgs e)
