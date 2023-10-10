@@ -27,7 +27,7 @@ namespace AT2
             }
             set
             {
-                firstName = ValidateName(value);
+                firstName = ValidateString(value, "Invalid First Name!");
             }
         }
         
@@ -42,7 +42,7 @@ namespace AT2
             }
             set
             {
-                lastName = ValidateName(value);
+                lastName = ValidateString(value, "Invalid Last Name!");
             }
         }
         
@@ -75,11 +75,7 @@ namespace AT2
             get { return uid; }
             set
             {
-                if (value.Trim().Length == 0)
-                {
-                    throw new ArgumentException("ID Cannot be an empty string!");
-                }
-                uid = value.Trim();
+                uid = ValidateString(value, "Invalid ID!");
             }
         }
         
@@ -181,15 +177,15 @@ namespace AT2
             return randomId;
         }
 
-        private string ValidateName(string inpName)
+        private string ValidateString(string inpStr, string errorMsg)
         {
-            if (inpName.Trim().Length == 0)
+            if (inpStr.Trim().Length == 0)
             {
-                throw new ArgumentException("First or Last Name cannot be an empty string!");
+                throw new ArgumentException(errorMsg);
             }
             else
             {
-                return inpName.Trim();
+                return inpStr.Trim();
             }
         }
         private double ValidateHourlyWage(double inpHourlyWage)
