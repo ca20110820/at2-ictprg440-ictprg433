@@ -233,6 +233,12 @@ namespace AT2
                 return;
             }
 
+            if (selectedJob != null && selectedJob.Completed)
+            {
+                MessageBox.Show("Cannot update details of a completed job!", "Warn");
+                return;
+            }
+
             try
             {
                 // Only Perform Changes on "Basic" Properties. `Completed` and `ContractorAssigned` will be 
