@@ -27,14 +27,7 @@ namespace AT2
             }
             set
             {
-                if (value.Trim().Length == 0)
-                {
-                    throw new ArgumentException("First Name cannot be an empty string!");
-                }
-                else
-                {
-                    firstName = value.Trim();
-                }
+                firstName = ValidateName(value);
             }
         }
         
@@ -49,14 +42,7 @@ namespace AT2
             }
             set
             {
-                if (value.Trim().Length == 0)
-                {
-                    throw new ArgumentException("Last Name cannot be an empty string!");
-                }
-                else
-                {
-                    lastName = value.Trim();
-                }
+                lastName = ValidateName(value);
             }
         }
         
@@ -200,6 +186,18 @@ namespace AT2
             randomId = randomId.Replace("/", "").Replace("+", "");
             randomId = randomId[..length];
             return randomId;
+        }
+
+        private string ValidateName(string inpName)
+        {
+            if (inpName.Trim().Length == 0)
+            {
+                throw new ArgumentException("First or Last Name cannot be an empty string!");
+            }
+            else
+            {
+                return inpName.Trim();
+            }
         }
     }
 }
