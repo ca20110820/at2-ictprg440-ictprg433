@@ -61,11 +61,8 @@ namespace AT2
             }
             set
             {
-                if (value.Date <= DateTime.Now.Date)  // If the New Date Value is Older than Date Now, throw error
-                {
-                    throw new Exception($"Job Date cannot be equal or older than date now {DateTime.Now.Date.ToString("dd/MM/yyyy")}");
-                }
-                date = value;
+                date = ValidateDate(value);
+
                 // Update ContractorAssigned, if exist
                 if (ContractorAssigned != null)
                 {
@@ -271,6 +268,16 @@ namespace AT2
                 throw new ArgumentException(errorMsg);
             }
             return inpStr.Trim();
+        }
+
+        private DateTime ValidateDate(DateTime inpDate)
+        {
+            if (inpDate.Date <= DateTime.Now.Date)  // If the New Date Value is Older than Date Now, throw error
+            {
+                throw new Exception($"Job Date cannot be equal or older than date now {DateTime.Now.Date.ToString("dd/MM/yyyy")}");
+            }
+
+            return inpDate;
         }
     }
 }
