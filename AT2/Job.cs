@@ -262,25 +262,14 @@ namespace AT2
                 throw new Exception("Cannot assign a contractor to a completed job!");
             }
 
-            if (contractorAssigned == null)
+            if (!contractor.IsAvailable)  // Assume that the New Contractor is Available, otherwise throw error
             {
-                if (!contractor.IsAvailable)  // Assume that the New Contractor is Available, otherwise throw error
-                {
-                    throw new Exception($"{contractor.FullName} is Working!");
-                }
-                contractor.StartDate = Date;  // Update StartDate of Contractor object
-                contractorAssigned = contractor;
+                throw new Exception($"{contractor.FullName} is Working!");
             }
-            else  // contractorAssigned not null
-            {
-                if (!contractor.IsAvailable)  // Assume that the New Contractor is Available, otherwise throw error
-                {
-                    throw new Exception($"{contractor.FullName} is Working!");
-                }
-                DeassignContractor();  // Deassign Old Contractor
-                contractor.StartDate = Date;  // Update StartDate of New Contractor object
-                contractorAssigned = contractor;  // Set contractorAssigned to the New Contractor object
-            }
+
+            DeassignContractor();  // Deassign Old Contractor
+            contractor.StartDate = Date;  // Update StartDate of New Contractor object
+            contractorAssigned = contractor;  // Set contractorAssigned to the New Contractor object
         }
 
         public void DeassignContractor()
