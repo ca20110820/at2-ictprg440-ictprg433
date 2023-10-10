@@ -126,7 +126,7 @@ namespace AT2
             Title = title;
             Date = date;
             Cost = cost;
-            ContractorAssigned = contractor;
+            AssignContractor(contractor);
         }
         public Job(string title, DateTime date, double cost)
         {
@@ -141,7 +141,7 @@ namespace AT2
             Title = title;
             Date = date;
             Cost = cost;
-            ContractorAssigned = contractor;
+            AssignContractor(contractor);
         }
 
         /// <summary>

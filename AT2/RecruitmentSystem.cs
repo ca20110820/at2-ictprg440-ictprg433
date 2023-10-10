@@ -59,15 +59,15 @@ namespace AT2
                 // Desassign the Contractor from the Job
                 foreach (Job job in jobs)
                 {
-                    if (job == null)
+                    if (job.ContractorAssigned == null)
                     {
-                        return;
+                        continue;
                     }
                     else 
                     {
                         if (job.ContractorAssigned.ID == contractor.ID)
                         {
-                            job.ContractorAssigned = null;  // Deassign the Contractor from the job
+                            job.DeassignContractor();
                             break;
                         }
                     }
@@ -88,7 +88,7 @@ namespace AT2
                 where j.ID == job.ID
                 select j;
 
-            if (ids.Count() > 0)
+            if (ids.Any())
             {
                 throw new Exception($"{job.Title} already exist with ID={job.ID}");
             }
@@ -109,7 +109,7 @@ namespace AT2
             // Note: Optional, Not part of requirements.
             if (!job.Completed && job.ContractorAssigned != null)
             {
-                job.ContractorAssigned = null;  // Reset to null to Update Contractor
+                job.DeassignContractor();
                 jobs.Remove(job);
             }
             else if (job.Completed || (!job.Completed && job.ContractorAssigned == null))
@@ -135,7 +135,7 @@ namespace AT2
         /// <param name="contractor"></param>
         public void AssignJob(Job job, Contractor contractor)
         {
-            job.ContractorAssigned = contractor;
+            job.AssignContractor(contractor);
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace AT2
         /// <param name="job"></param>
         public void CompleteJob(Job job)
         {
-            job.Completed = true;
+            job.JobDone();
         }
 
         /// <summary>
