@@ -97,47 +97,6 @@ namespace AT2
             {
                 return contractorAssigned;
             }
-            set
-            {
-                if (completed)  // If job is already in a completed state, cannot assign a new contractor. Throw an error.
-                {
-                    throw new Exception("Cannot assign a contractor to a completed job!");
-                }
-
-                if (contractorAssigned == null)
-                {
-                    if (value == null)
-                    {
-                    }
-                    else  // i.e. Assigning a New Contractor
-                    {
-                        if (!value.IsAvailable)  // Assume that the New Contractor is Available, otherwise throw error
-                        {
-                            throw new Exception($"{value.FullName} is Working!");
-                        }
-                        value.StartDate = Date;  // Update StartDate of Contractor object
-                        contractorAssigned = value;
-                    }
-                }
-                else  // contractorAssigned not null
-                {
-                    if (value == null)  // i.e. Deassigning the Current Contractor
-                    {
-                        contractorAssigned.StartDate = null;  // Reset Contractor object StartDate back to null
-                        contractorAssigned = null;  // Set contractorAssigned to null
-                    }
-                    else  // i.e. We are replacing the Current Contractor with a New One
-                    {
-                        if (!value.IsAvailable)  // Assume that the New Contractor is Available, otherwise throw error
-                        {
-                            throw new Exception($"{value.FullName} is Working!");
-                        }
-                        contractorAssigned.StartDate = null;  // Reset Old Contractor object StartDate back to null
-                        value.StartDate = Date;  // Update StartDate of New Contractor object
-                        contractorAssigned = value;  // Set contractorAssigned to the New Contractor object
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -151,26 +110,6 @@ namespace AT2
             get
             {
                 return completed;
-            }
-            set
-            {
-                if (!completed && value)  // i.e. Job is Now Completed
-                {
-                    if (contractorAssigned == null)
-                    {
-                        throw new Exception("Cannot complete a job without any assigned contractor!");
-                    }
-                    // Update Properties of Contractor
-                    contractorAssigned.StartDate = null;  // Make the Contractor Available
-                    contractorAssigned = null;  // Set contractorAssigned to null
-
-                    // Set completed to true
-                    completed = true;
-                }
-                if(completed && !value)  // i.e. Trying to re-open a unique job that is already archived, throw error
-                {
-                    throw new Exception("Cannot Re-open a Completed Job!");
-                }
             }
         }
 
