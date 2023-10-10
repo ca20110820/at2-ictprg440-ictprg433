@@ -30,11 +30,7 @@ namespace AT2
             }
             set
             {
-                if (value.Trim().Length == 0)
-                {
-                    throw new Exception("Job ID cannot be an empty string!");
-                }
-                uid = value.Trim();
+                uid = ValidateString(value, "Invalid ID!");
             }
         }
 
@@ -48,12 +44,8 @@ namespace AT2
                 return title;
             }
             set 
-            { 
-                if(value.Trim().Length == 0)
-                {
-                    throw new Exception("Title cannot be an empty string!");
-                }
-                title = value.Trim();
+            {
+                title = ValidateString(value, "Invalid Title!");
             }
         }
 
@@ -270,6 +262,15 @@ namespace AT2
             randomId = randomId.Replace("/", "").Replace("+", "");
             randomId = randomId[..length];
             return randomId;
+        }
+
+        private string ValidateString(string inpStr, string errorMsg)
+        {
+            if (inpStr.Trim().Length == 0)
+            {
+                throw new ArgumentException(errorMsg);
+            }
+            return inpStr.Trim();
         }
     }
 }
