@@ -82,14 +82,7 @@ namespace AT2
             }
             set
             {
-                if (value  > 0)
-                {
-                    cost = value;
-                }
-                else
-                {
-                    throw new Exception("Cost cannot be less than or equal to zero!");
-                }
+                cost = ValidateCost(value);
             }
         }
 
@@ -278,6 +271,18 @@ namespace AT2
             }
 
             return inpDate;
+        }
+
+        private double ValidateCost(double inpCost)
+        {
+            if (inpCost > 0)
+            {
+                return inpCost;
+            }
+            else
+            {
+                throw new Exception("Cost cannot be less than or equal to zero!");
+            }
         }
     }
 }
