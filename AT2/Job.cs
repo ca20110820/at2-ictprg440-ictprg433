@@ -292,6 +292,15 @@ namespace AT2
             }
         }
 
+        public void JobDone()
+        {
+            if (!completed)
+            {
+                DeassignContractor();
+                completed = true;
+            }
+        }
+
         private string ValidateString(string inpStr, string errorMsg)
         {
             if (inpStr.Trim().Length == 0)
