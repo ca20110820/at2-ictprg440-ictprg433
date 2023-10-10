@@ -408,5 +408,33 @@ namespace AT2
             //comboboxCompleted.SelectedItem = null;
             //comboboxContractorAssigned.SelectedItem = null;
         }
+
+        private void menuitemClearSelection_Click(object sender, RoutedEventArgs e)
+        {
+            ClearAllSelection();
+        }
+
+        private void ClearAllSelection()
+        {
+            txtbxFirstName.Text = string.Empty;
+            txtbxLastName.Text = string.Empty;
+            datepickerStartDate.SelectedDate = null;
+            txtbxHourlyWage.Text = string.Empty;
+
+            txtbxTitle.Text = string.Empty;
+            datepickerDate.SelectedDate = null;
+            txtbxCost.Text = string.Empty;
+            comboboxCompleted.SelectedItem = null;
+            comboboxContractorAssigned.SelectedItem = null;
+
+            datagridContractor.SelectedItem = null;
+            datagridJob.SelectedItem = null;
+
+            datagridJob.ItemsSource = recruitmentSystem.Jobs;
+            datagridContractor.ItemsSource = recruitmentSystem.Contractors;
+            tabctrlDataGrids.SelectedItem = tabitemContractor;
+
+            comboboxFilters.SelectedItem = null;
+        }
     }
 }
