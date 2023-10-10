@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace AT2
 {
@@ -252,6 +253,43 @@ namespace AT2
             randomId = randomId.Replace("/", "").Replace("+", "");
             randomId = randomId[..length];
             return randomId;
+        }
+
+        public void AssignContractor(Contractor contractor)
+        {
+            if (completed)
+            {
+                throw new Exception("Cannot assign a contractor to a completed job!");
+            }
+
+            if (contractorAssigned == null)
+            {
+                if (!contractor.IsAvailable)  // Assume that the New Contractor is Available, otherwise throw error
+                {
+                    throw new Exception($"{contractor.FullName} is Working!");
+                }
+                contractor.StartDate = Date;  // Update StartDate of Contractor object
+                contractorAssigned = contractor;
+            }
+            else  // contractorAssigned not null
+            {
+                if (!contractor.IsAvailable)  // Assume that the New Contractor is Available, otherwise throw error
+                {
+                    throw new Exception($"{contractor.FullName} is Working!");
+                }
+                DeassignContractor();  // Deassign Old Contractor
+                contractor.StartDate = Date;  // Update StartDate of New Contractor object
+                contractorAssigned = contractor;  // Set contractorAssigned to the New Contractor object
+            }
+        }
+
+        public void DeassignContractor()
+        {
+            if (contractorAssigned != null)
+            {
+                contractorAssigned.StartDate = null;  // Reset Contractor object StartDate back to null
+                contractorAssigned = null;  // Set contractorAssigned to null
+            }
         }
 
         private string ValidateString(string inpStr, string errorMsg)
