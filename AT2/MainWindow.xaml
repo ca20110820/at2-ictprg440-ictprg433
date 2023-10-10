@@ -5,157 +5,169 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AT2"
         mc:Ignorable="d"
-        Title="Recruitment Tracker" Height="450" Width="1300" ResizeMode="NoResize">
-    <Grid Name="rootGrid">
-        <!-- Set Root Grid Properties -->
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="0.93*"/>
-        </Grid.ColumnDefinitions>
+        Title="Recruitment Tracker" Height="480" Width="1300" ResizeMode="NoResize">
 
-        <!-- Set Grid Properties for the Forms -->
-        <Grid Name="gridForms" Grid.Column="0">
+    <StackPanel>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_Edit">
+                    <MenuItem x:Name="menuitemClearSelection" Header="_Clear Selection"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        
+        <Grid Name="rootGrid">
+            <!-- Set Root Grid Properties -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.93*"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="0.9*"/>
-            </Grid.RowDefinitions>
 
-            <!-- Contractor Form -->
-            <GroupBox Grid.Row="0" Grid.Column="0" Header="Contractor">
-                <StackPanel>
-                    <Label Content="First Name" FontWeight="Bold"/>
-                    <TextBox x:Name="txtbxFirstName" />
-                    <Label Content="Last Name" FontWeight="Bold"/>
-                    <TextBox x:Name="txtbxLastName" />
-                    <Label Content="Start Date" FontWeight="Bold"/>
-                    <DatePicker x:Name="datepickerStartDate" />
-                    <Label Content="Hourly Wage ($)" FontWeight="Bold"/>
-                    <TextBox x:Name="txtbxHourlyWage" />
-                    <Label x:Name="labelAvailability" Content="" FontWeight="Bold"/>
-                </StackPanel>
-            </GroupBox>
-
-            <!-- Contractor Buttons -->
-            <StackPanel Grid.Row="1" Grid.Column="0">
-                <Button x:Name="btnAddContractor" Content="Add Contractor" Margin="10,10,10,5" Click="btnAddContractor_Click"/>
-                <Button x:Name="btnUpdateContractor" Content="Update Contractor" Margin="10,10,10,5" Click="btnUpdateContractor_Click"/>
-                <Button x:Name="btnRemoveContractor" Content="Remove Contractor" Margin="10,10,10,5" Click="btnRemoveContractor_Click"/>
-            </StackPanel>
-            
-            <!-- Job Form -->
-            <GroupBox Header="Job" Grid.Row="0" Grid.Column="1">
-                <StackPanel>
-                    <Label Content="Title" FontWeight="Bold"/>
-                    <TextBox x:Name="txtbxTitle" />
-                    <Label Content="Date" FontWeight="Bold"/>
-                    <DatePicker x:Name="datepickerDate" />
-                    <Label Content="Cost" FontWeight="Bold"/>
-                    <TextBox x:Name="txtbxCost" />
-
-                    <Border Background="#FFA5D8FF" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,8,8">
-                        <StackPanel Height="115">
-                            <Label Content="Status" FontWeight="Bold"/>
-                            <ComboBox x:Name="comboboxCompleted" SelectionChanged="comboboxCompleted_SelectionChanged" Margin="10,0,10,0">
-                                <ComboBoxItem Content="Completed"/>
-                                <ComboBoxItem Content="Not Complete"/>
-                            </ComboBox>
-                            <Label Content="Contractor Assigned" FontWeight="Bold"/>
-                            <ComboBox x:Name="comboboxContractorAssigned" SelectionChanged="comboboxContractorAssigned_SelectionChanged" Margin="10,0,10,0"/>
-                        </StackPanel>
-                    </Border>
-                    
-                </StackPanel>
-            </GroupBox>
-
-            <!-- Job Buttons -->
-            <StackPanel Grid.Row="1" Grid.Column="1">
-                <Button x:Name="btnAddJob" Content="Add Job" Margin="10,10,10,5" Click="btnAddJob_Click"/>
-                <Button x:Name="btnUpdateJob" Content="Update Job" Margin="10,10,10,5" Click="btnUpdateJob_Click"/>
-                <Button x:Name="btnRemoveJob" Content="Remove Job" Margin="10,10,10,5" Click="btnRemoveJob_Click"/>
-            </StackPanel>
-        </Grid>
-
-        <!-- Set Root Grid Properties for Views and Filters -->
-        <Grid Name="gridViewsAndFilters" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="0.3*"/>
-            </Grid.RowDefinitions>
-
-            <!-- Set Tab Control -->
-            <TabControl x:Name="tabctrlDataGrids" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
-                <TabItem x:Name="tabitemContractor" Header="Contractor">
-                    <!-- Contractor DataGrid -->
-                    <DataGrid x:Name="datagridContractor" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="datagridContractor_SelectionChanged">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
-                            <DataGridTextColumn Header="Name" Binding="{Binding FullName}" />
-                            <DataGridTextColumn Header="Start Date">
-                                <DataGridTextColumn.Binding>
-                                    <Binding Path="StartDate" StringFormat="dd/MM/yyyy" />
-                                </DataGridTextColumn.Binding>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="Hourly Wage" Binding="{Binding HourlyWage}" />
-                            <DataGridTextColumn Header="Is Available" Binding="{Binding IsAvailable}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </TabItem>
-                <TabItem x:Name="tabitemJob" Header="Job" >
-                    <!-- Job DataGrid -->
-                    <DataGrid x:Name="datagridJob" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="datagridJob_SelectionChanged">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
-                            <DataGridTextColumn Header="Title" Binding="{Binding Title}" />
-                            <DataGridTextColumn Header="Date">
-                                <DataGridTextColumn.Binding>
-                                    <Binding Path="Date" StringFormat="dd/MM/yyyy" />
-                                </DataGridTextColumn.Binding>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="Cost" Binding="{Binding Cost}" />
-                            <DataGridTextColumn Header="Is Completed" Binding="{Binding Completed}" />
-                            <DataGridTextColumn Header="Contractor" Binding="{Binding ContractorAssigned}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </TabItem>
-            </TabControl>
-
-            <!-- Set Filter and Viewing Buttons -->
-            <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+            <!-- Set Grid Properties for the Forms -->
+            <Grid Name="gridForms" Grid.Column="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.4*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="0.9*"/>
                 </Grid.RowDefinitions>
 
-                <ComboBox x:Name="comboboxFilters" Margin="10,25,10,50" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" SelectionChanged="comboboxFilters_SelectionChanged">
-                    <ComboBoxItem Content="-reset-"/>
-                    <ComboBoxItem Content="Get All Contractors"/>
-                    <ComboBoxItem Content="Get All Jobs"/>
-                    <ComboBoxItem Content="Get Available Contractors"/>
-                    <ComboBoxItem Content="Get Unassigned Jobs"/>
-                    <ComboBoxItem Content="Get Jobs By Cost"/>
-                    <ComboBoxItem Content="Get Assigned Jobs"/>
-                </ComboBox>
+                <!-- Contractor Form -->
+                <GroupBox Grid.Row="0" Grid.Column="0" Header="Contractor">
+                    <StackPanel>
+                        <Label Content="First Name" FontWeight="Bold"/>
+                        <TextBox x:Name="txtbxFirstName" />
+                        <Label Content="Last Name" FontWeight="Bold"/>
+                        <TextBox x:Name="txtbxLastName" />
+                        <Label Content="Start Date" FontWeight="Bold"/>
+                        <DatePicker x:Name="datepickerStartDate" />
+                        <Label Content="Hourly Wage ($)" FontWeight="Bold"/>
+                        <TextBox x:Name="txtbxHourlyWage" />
+                        <Label x:Name="labelAvailability" Content="" FontWeight="Bold"/>
+                    </StackPanel>
+                </GroupBox>
 
-                <TextBox x:Name="txtMinValue" Text="Min Value" Grid.Column="1" Grid.Row="0" Margin="20,30,20,45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-                <TextBox x:Name="txtMaxValue" Text="Max Value" Grid.Column="2" Grid.Row="0" Margin="20,30,20,45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <!-- Contractor Buttons -->
+                <StackPanel Grid.Row="1" Grid.Column="0">
+                    <Button x:Name="btnAddContractor" Content="Add Contractor" Margin="10,10,10,5" Click="btnAddContractor_Click"/>
+                    <Button x:Name="btnUpdateContractor" Content="Update Contractor" Margin="10,10,10,5" Click="btnUpdateContractor_Click"/>
+                    <Button x:Name="btnRemoveContractor" Content="Remove Contractor" Margin="10,10,10,5" Click="btnRemoveContractor_Click"/>
+                </StackPanel>
+
+                <!-- Job Form -->
+                <GroupBox Header="Job" Grid.Row="0" Grid.Column="1">
+                    <StackPanel>
+                        <Label Content="Title" FontWeight="Bold"/>
+                        <TextBox x:Name="txtbxTitle" />
+                        <Label Content="Date" FontWeight="Bold"/>
+                        <DatePicker x:Name="datepickerDate" />
+                        <Label Content="Cost" FontWeight="Bold"/>
+                        <TextBox x:Name="txtbxCost" />
+
+                        <Border Background="#FFA5D8FF" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,8,8">
+                            <StackPanel Height="115">
+                                <Label Content="Status" FontWeight="Bold"/>
+                                <ComboBox x:Name="comboboxCompleted" SelectionChanged="comboboxCompleted_SelectionChanged" Margin="10,0,10,0">
+                                    <ComboBoxItem Content="Completed"/>
+                                    <ComboBoxItem Content="Not Complete"/>
+                                </ComboBox>
+                                <Label Content="Contractor Assigned" FontWeight="Bold"/>
+                                <ComboBox x:Name="comboboxContractorAssigned" SelectionChanged="comboboxContractorAssigned_SelectionChanged" Margin="10,0,10,0"/>
+                            </StackPanel>
+                        </Border>
+
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Job Buttons -->
+                <StackPanel Grid.Row="1" Grid.Column="1">
+                    <Button x:Name="btnAddJob" Content="Add Job" Margin="10,10,10,5" Click="btnAddJob_Click"/>
+                    <Button x:Name="btnUpdateJob" Content="Update Job" Margin="10,10,10,5" Click="btnUpdateJob_Click"/>
+                    <Button x:Name="btnRemoveJob" Content="Remove Job" Margin="10,10,10,5" Click="btnRemoveJob_Click"/>
+                </StackPanel>
             </Grid>
 
+            <!-- Set Root Grid Properties for Views and Filters -->
+            <Grid Name="gridViewsAndFilters" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.3*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Set Tab Control -->
+                <TabControl x:Name="tabctrlDataGrids" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                    <TabItem x:Name="tabitemContractor" Header="Contractor">
+                        <!-- Contractor DataGrid -->
+                        <DataGrid x:Name="datagridContractor" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="datagridContractor_SelectionChanged">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
+                                <DataGridTextColumn Header="Name" Binding="{Binding FullName}" />
+                                <DataGridTextColumn Header="Start Date">
+                                    <DataGridTextColumn.Binding>
+                                        <Binding Path="StartDate" StringFormat="dd/MM/yyyy" />
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Hourly Wage" Binding="{Binding HourlyWage}" />
+                                <DataGridTextColumn Header="Is Available" Binding="{Binding IsAvailable}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem x:Name="tabitemJob" Header="Job" >
+                        <!-- Job DataGrid -->
+                        <DataGrid x:Name="datagridJob" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="datagridJob_SelectionChanged">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
+                                <DataGridTextColumn Header="Title" Binding="{Binding Title}" />
+                                <DataGridTextColumn Header="Date">
+                                    <DataGridTextColumn.Binding>
+                                        <Binding Path="Date" StringFormat="dd/MM/yyyy" />
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Cost" Binding="{Binding Cost}" />
+                                <DataGridTextColumn Header="Is Completed" Binding="{Binding Completed}" />
+                                <DataGridTextColumn Header="Contractor" Binding="{Binding ContractorAssigned}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                </TabControl>
+
+                <!-- Set Filter and Viewing Buttons -->
+                <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.4*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <ComboBox x:Name="comboboxFilters" Margin="10,25,10,50" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" SelectionChanged="comboboxFilters_SelectionChanged">
+                        <ComboBoxItem Content="-reset-"/>
+                        <ComboBoxItem Content="Get All Contractors"/>
+                        <ComboBoxItem Content="Get All Jobs"/>
+                        <ComboBoxItem Content="Get Available Contractors"/>
+                        <ComboBoxItem Content="Get Unassigned Jobs"/>
+                        <ComboBoxItem Content="Get Jobs By Cost"/>
+                        <ComboBoxItem Content="Get Assigned Jobs"/>
+                    </ComboBox>
+
+                    <TextBox x:Name="txtMinValue" Text="Min Value" Grid.Column="1" Grid.Row="0" Margin="20,30,20,45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                    <TextBox x:Name="txtMaxValue" Text="Max Value" Grid.Column="2" Grid.Row="0" Margin="20,30,20,45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                </Grid>
+
+
+            </Grid>
 
         </Grid>
-
-    </Grid>
+        
+    </StackPanel>
 </Window>
