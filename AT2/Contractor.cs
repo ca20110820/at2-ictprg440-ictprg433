@@ -63,14 +63,7 @@ namespace AT2
             }
             set
             {
-                if (value > 0)
-                {
-                    hourlyWage = value;
-                }
-                else
-                {
-                    throw new InvalidOperationException("Hourly Wage cannot be less than or equal to zero!");
-                }
+                hourlyWage = ValidateHourlyWage(value);
             }
         }
         
@@ -197,6 +190,17 @@ namespace AT2
             else
             {
                 return inpName.Trim();
+            }
+        }
+        private double ValidateHourlyWage(double inpHourlyWage)
+        {
+            if (inpHourlyWage <= 0)
+            {
+                throw new ArgumentException("Hourly Wage cannot be less than or equal to zero!");
+            }
+            else
+            {
+                return inpHourlyWage;
             }
         }
     }
