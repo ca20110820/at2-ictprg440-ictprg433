@@ -321,7 +321,7 @@ namespace AT2
             datagridJob.ItemsSource = null;
             datagridJob.ItemsSource = recruitmentSystem.Jobs;
             //datagridJob.ItemsSource = recruitmentSystem.Jobs.Where(x => x.ContractorAssigned is Contractor);  // Update the Job DataGrid
-            //comboboxFilters.SelectedIndex = 6;
+            comboboxFilters.SelectedIndex = 2;
         }
 
         private void comboboxFilters_SelectionChanged(object sender, SelectionChangedEventArgs e)

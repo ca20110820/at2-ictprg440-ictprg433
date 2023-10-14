@@ -8,6 +8,7 @@
         Title="Recruitment Tracker" Height="480" Width="1300" ResizeMode="NoResize">
 
     <StackPanel>
+        <!-- Menu -->
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_Edit">
