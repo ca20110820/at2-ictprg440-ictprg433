@@ -141,17 +141,18 @@
                 <!-- Set Filter and Viewing Buttons -->
                 <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.4*"/>
                         <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="0.65*"/>
+                        <ColumnDefinition Width="0.65*"/>
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <ComboBox x:Name="comboboxFilters" Margin="10,25,10,50" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" SelectionChanged="comboboxFilters_SelectionChanged">
+                    <Label Content="Filters" Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="comboboxFilters" Margin="10,25,10,50" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" SelectionChanged="comboboxFilters_SelectionChanged">
                         <ComboBoxItem Content="-reset-"/>
                         <ComboBoxItem Content="Get All Contractors"/>
                         <ComboBoxItem Content="Get All Jobs"/>
@@ -161,11 +162,12 @@
                         <ComboBoxItem Content="Get Assigned Jobs"/>
                     </ComboBox>
 
-                    <TextBox x:Name="txtMinValue" Text="Min Value" Grid.Column="1" Grid.Row="0" Margin="20,30,20,45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-                    <TextBox x:Name="txtMaxValue" Text="Max Value" Grid.Column="2" Grid.Row="0" Margin="20,30,20,45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Label Content="Min Value" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Center"/>
+                    <Label Content="Max Value" Grid.Column="2" Grid.Row="0" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="txtMinValue" Text="0" Grid.Column="1" Grid.Row="1" Margin="10,25,10,50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                    <TextBox x:Name="txtMaxValue" Text="1000000" Grid.Column="2" Grid.Row="1" Margin="10,25,10,50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 </Grid>
-
-
+                
             </Grid>
 
         </Grid>
