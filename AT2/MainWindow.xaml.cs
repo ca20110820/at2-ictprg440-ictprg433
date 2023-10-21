@@ -269,7 +269,7 @@ namespace AT2
             if (selectedJob is null)
             {
                 tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
-                MessageBox.Show("Please Select a Job", "Warn");
+                //MessageBox.Show("Please Select a Job", "Warn");
                 return;
             }
 
