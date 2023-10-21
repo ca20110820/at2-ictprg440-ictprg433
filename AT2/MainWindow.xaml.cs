@@ -328,6 +328,11 @@ namespace AT2
         {
             int selectedIndex = comboboxFilters.SelectedIndex;
 
+            if (selectedIndex < 0)
+            {
+                return;
+            }
+
             switch (selectedIndex)
             {
                 case 0:  // Empty
