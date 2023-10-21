@@ -133,6 +133,9 @@ namespace AT2
                 datagridContractor.ItemsSource = null;
                 datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
                 DeselectContractorForm();
+
+                comboboxContractorAssigned.ItemsSource = null;
+                comboboxContractorAssigned.ItemsSource = recruitmentSystem.Contractors;
             }
             catch (Exception error)
             {
@@ -195,6 +198,7 @@ namespace AT2
             {
                 MessageBox.Show("Please Select a Job to Remove", "Warn");
                 tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
+                return;
             }
 
             try
