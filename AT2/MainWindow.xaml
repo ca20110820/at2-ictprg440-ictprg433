@@ -105,7 +105,8 @@
                 <TabControl x:Name="tabctrlDataGrids" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
                     <TabItem x:Name="tabitemContractor" Header="Contractor">
                         <!-- Contractor DataGrid -->
-                        <DataGrid x:Name="datagridContractor" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="datagridContractor_SelectionChanged">
+                        <DataGrid x:Name="datagridContractor" AutoGenerateColumns="False" IsReadOnly="True" 
+                                  SelectionChanged="datagridContractor_SelectionChanged" MaxHeight="230">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
                                 <DataGridTextColumn Header="Name" Binding="{Binding FullName}" />
@@ -121,7 +122,8 @@
                     </TabItem>
                     <TabItem x:Name="tabitemJob" Header="Job" >
                         <!-- Job DataGrid -->
-                        <DataGrid x:Name="datagridJob" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="datagridJob_SelectionChanged">
+                        <DataGrid x:Name="datagridJob" AutoGenerateColumns="False" IsReadOnly="True" MaxHeight="230"
+                                  SelectionChanged="datagridJob_SelectionChanged">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
                                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" />
