@@ -267,7 +267,7 @@ namespace AT2
 
             Job selectedJob = (Job)datagridJob.SelectedItem;  // Get Selected Job, if selected (could be null)
 
-            if (selectedJob is null)
+            if (selectedJob == null)
             {
                 tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
                 //MessageBox.Show("Please Select a Job", "Warn");
@@ -284,6 +284,7 @@ namespace AT2
                     datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
                     datagridJob.ItemsSource = null;
                     datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+                    comboboxFilters.SelectedIndex = 2;
                 }
                 catch (Exception error)
                 {
