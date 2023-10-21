@@ -98,8 +98,17 @@ namespace AT2
         {
             try
             {
-
                 Contractor newContractor = new Contractor(txtbxFirstName.Text, txtbxLastName.Text, double.Parse(txtbxHourlyWage.Text));  // Instantiate New Contractor
+
+                foreach (Contractor contractor in recruitmentSystem.Contractors)
+                {
+                    if (newContractor.FullName == contractor.FullName)
+                    {
+                        MessageBox.Show($"A Contractor already exist with the same Full Name '{contractor.FullName}'", "Warn");
+                        break;
+                    }
+                }
+
                 recruitmentSystem.AddContractor(newContractor);  // Add new Contractor
 
                 tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
