@@ -58,9 +58,9 @@ namespace AT2
 
             if (selectedContractor == null)  // Scenario of mis-selection
             {
-                tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
-                datagridContractor.ItemsSource = null;
-                datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
+                //tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
+                //datagridContractor.ItemsSource = null;
+                //datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
                 return;
             }
 
@@ -78,12 +78,13 @@ namespace AT2
 
             if (selectedJob == null)  // Scenario of mis-selection
             {
-                tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
-                datagridJob.ItemsSource = null;
-                datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+                //tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
+                //datagridJob.ItemsSource = null;
+                //datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
                 return;
             }
 
+            comboboxContractorAssigned.ItemsSource = null;
             comboboxContractorAssigned.ItemsSource = recruitmentSystem.Contractors;
 
             // Update and Change the Forms in Job Group
@@ -278,6 +279,11 @@ namespace AT2
                 try
                 {
                     recruitmentSystem.CompleteJob(selectedJob);
+
+                    datagridContractor.ItemsSource = null;
+                    datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
+                    datagridJob.ItemsSource = null;
+                    datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
                 }
                 catch (Exception error)
                 {
@@ -285,11 +291,6 @@ namespace AT2
                     return;
                 }
             }
-
-            datagridContractor.ItemsSource = null;
-            datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
-            datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
         }
 
         private void comboboxContractorAssigned_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -297,7 +298,7 @@ namespace AT2
             Contractor selectedContractor = (Contractor)comboboxContractorAssigned.SelectedItem;  // Changed ContractorAssigned - Current State
             Job selectedJob = (Job)datagridJob.SelectedItem;  // Get Selected Job
 
-            if (selectedJob is null)  // Check if no Job selected
+            if (selectedJob == null)  // Check if no Job selected
             {
                 return;
             }
@@ -305,23 +306,24 @@ namespace AT2
             {
                 return;
             }
+            if (selectedContractor == null) return;
 
             try
             {
                 recruitmentSystem.AssignJob(selectedJob, selectedContractor);
+
+                datagridContractor.ItemsSource = null;
+                datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
+                datagridJob.ItemsSource = null;
+                datagridJob.ItemsSource = recruitmentSystem.Jobs;
+                //datagridJob.ItemsSource = recruitmentSystem.Jobs.Where(x => x.ContractorAssigned is Contractor);  // Update the Job DataGrid
+                comboboxFilters.SelectedIndex = 2;
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.Message, "Error");
                 return;
             }
-
-            datagridContractor.ItemsSource = null;
-            datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
-            datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.Jobs;
-            //datagridJob.ItemsSource = recruitmentSystem.Jobs.Where(x => x.ContractorAssigned is Contractor);  // Update the Job DataGrid
-            comboboxFilters.SelectedIndex = 2;
         }
 
         private void comboboxFilters_SelectionChanged(object sender, SelectionChangedEventArgs e)
