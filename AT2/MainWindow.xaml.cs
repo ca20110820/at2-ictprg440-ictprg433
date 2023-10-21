@@ -58,9 +58,6 @@ namespace AT2
 
             if (selectedContractor == null)  // Scenario of mis-selection
             {
-                //tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
-                //datagridContractor.ItemsSource = null;
-                //datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
                 return;
             }
 
@@ -78,9 +75,6 @@ namespace AT2
 
             if (selectedJob == null)  // Scenario of mis-selection
             {
-                //tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
-                //datagridJob.ItemsSource = null;
-                //datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
                 return;
             }
 
@@ -107,16 +101,16 @@ namespace AT2
 
                 Contractor newContractor = new Contractor(txtbxFirstName.Text, txtbxLastName.Text, double.Parse(txtbxHourlyWage.Text));  // Instantiate New Contractor
                 recruitmentSystem.AddContractor(newContractor);  // Add new Contractor
+
+                tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
+                datagridContractor.ItemsSource = null;
+                datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
+                DeselectContractorForm();
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.Message, "Error");
-                return;
             }
-            tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
-            datagridContractor.ItemsSource = null;
-            datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
-            DeselectContractorForm();
         }
 
         private void btnRemoveContractor_Click(object sender, RoutedEventArgs e)
@@ -133,18 +127,17 @@ namespace AT2
             try
             {
                 recruitmentSystem.RemoveContractor(selectedContractor);
+
+                datagridJob.ItemsSource = null;
+                datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+                datagridContractor.ItemsSource = null;
+                datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
+                DeselectContractorForm();
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.Message, "Error");
-                return;
             }
-
-            datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
-            datagridContractor.ItemsSource = null;
-            datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
-            DeselectContractorForm();
         }
 
         private void btnUpdateContractor_Click(object sender, RoutedEventArgs e)
@@ -164,17 +157,16 @@ namespace AT2
                 selectedContractor.LastName = txtbxLastName.Text;
                 //selectedContractor.StartDate = datepickerStartDate.SelectedDate;
                 selectedContractor.HourlyWage = Math.Round(double.Parse(txtbxHourlyWage.Text), 2, MidpointRounding.AwayFromZero);
+
+                datagridJob.ItemsSource = null;
+                datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+                datagridContractor.ItemsSource = null;
+                datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.Message, "Error");
-                return;
             }
-
-            datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
-            datagridContractor.ItemsSource = null;
-            datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
         }
 
         private void btnAddJob_Click(object sender, RoutedEventArgs e)
@@ -183,16 +175,16 @@ namespace AT2
             {
                 Job newJob = new Job(txtbxTitle.Text, datepickerDate.SelectedDate.Value, double.Parse(txtbxCost.Text));
                 recruitmentSystem.AddJob(newJob);
+
+                tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
+                datagridJob.ItemsSource = null;
+                datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+                DeselectJobForm();
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.Message, "Error");
-                return;
             }
-            tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
-            datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
-            DeselectJobForm();
         }
 
         private void btnRemoveJob_Click(object sender, RoutedEventArgs e)
@@ -203,24 +195,22 @@ namespace AT2
             {
                 MessageBox.Show("Please Select a Job to Remove", "Warn");
                 tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
-                return;
             }
 
             try
             {
                 recruitmentSystem.RemoveJob(selectedJob);
+
+                datagridContractor.ItemsSource = null;
+                datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
+                datagridJob.ItemsSource = null;
+                datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+                DeselectJobForm();
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.Message, "Error");
-                return;
             }
-
-            datagridContractor.ItemsSource = null;
-            datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
-            datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
-            DeselectJobForm();
         }
 
         private void btnUpdateJob_Click(object sender, RoutedEventArgs e)
@@ -247,17 +237,16 @@ namespace AT2
                 selectedJob.Title = txtbxTitle.Text;
                 selectedJob.Date = datepickerDate.SelectedDate.Value;
                 selectedJob.Cost = Math.Round(double.Parse(txtbxCost.Text), 2, MidpointRounding.AwayFromZero);
+
+                datagridContractor.ItemsSource = null;
+                datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
+                datagridJob.ItemsSource = null;
+                datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.Message, "Error");
-                return;
             }
-
-            datagridContractor.ItemsSource = null;
-            datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
-            datagridJob.ItemsSource = null;
-            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
         }
 
         private void comboboxCompleted_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -270,7 +259,6 @@ namespace AT2
             if (selectedJob == null)
             {
                 tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
-                //MessageBox.Show("Please Select a Job", "Warn");
                 return;
             }
 
@@ -278,18 +266,20 @@ namespace AT2
             {
                 try
                 {
+                    if (selectedJob.Completed) return;
+
                     recruitmentSystem.CompleteJob(selectedJob);
 
                     datagridContractor.ItemsSource = null;
                     datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
                     datagridJob.ItemsSource = null;
                     datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+                    DeselectJobForm();
                     comboboxFilters.SelectedIndex = 2;
                 }
                 catch (Exception error)
                 {
                     MessageBox.Show(error.Message, "Error");
-                    return;
                 }
             }
         }
@@ -297,7 +287,7 @@ namespace AT2
         private void comboboxContractorAssigned_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Contractor selectedContractor = (Contractor)comboboxContractorAssigned.SelectedItem;  // Changed ContractorAssigned - Current State
-            Job selectedJob = (Job)datagridJob.SelectedItem;  // Get Selected Job
+            Job selectedJob = (Job)datagridJob.SelectedItem;
 
             if (selectedJob == null)  // Check if no Job selected
             {
@@ -323,7 +313,6 @@ namespace AT2
             catch (Exception error)
             {
                 MessageBox.Show(error.Message, "Error");
-                return;
             }
         }
 
@@ -372,7 +361,7 @@ namespace AT2
                         datagridJob.ItemsSource = null;
                         datagridJob.ItemsSource = recruitmentSystem.GetJobByCost(double.Parse(txtMinValue.Text), double.Parse(txtMaxValue.Text));  // Update the Job DataGrid
                     }
-                    catch (Exception error)
+                    catch
                     {
                         MessageBox.Show("Minimum and Maximum Values must be appropriate numbers!", "Error");
                         datagridJob.ItemsSource = recruitmentSystem.Jobs;
@@ -388,7 +377,6 @@ namespace AT2
                     datagridJob.ItemsSource = recruitmentSystem.GetAssignedJobs();  // Update the Job DataGrid
                     tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
                     return;
-
             }
         }
 
@@ -414,8 +402,8 @@ namespace AT2
             txtbxTitle.Text = string.Empty;
             datepickerDate.SelectedDate = null;
             txtbxCost.Text = string.Empty;
-            //comboboxCompleted.SelectedItem = null;
-            //comboboxContractorAssigned.SelectedItem = null;
+            comboboxCompleted.SelectedItem = null;
+            comboboxContractorAssigned.SelectedItem = null;
         }
 
         private void menuitemClearSelection_Click(object sender, RoutedEventArgs e)
