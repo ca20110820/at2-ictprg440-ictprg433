@@ -177,8 +177,8 @@ namespace AT2
                 recruitmentSystem.AddContractor(newContractor);  // Add new Contractor
 
                 tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
-                datagridContractor.ItemsSource = null;
-                datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
+                
+                ResetContractorDataGrid();
                 DeselectContractorForm();
             }
             catch (Exception error)
@@ -202,10 +202,8 @@ namespace AT2
             {
                 recruitmentSystem.RemoveContractor(selectedContractor);
 
-                datagridJob.ItemsSource = null;
-                datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
-                datagridContractor.ItemsSource = null;
-                datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
+                ResetJobDataGrid();
+                ResetContractorDataGrid();
                 DeselectContractorForm();
 
                 comboboxContractorAssigned.ItemsSource = null;
@@ -235,10 +233,8 @@ namespace AT2
                 //selectedContractor.StartDate = datepickerStartDate.SelectedDate;
                 selectedContractor.HourlyWage = Math.Round(double.Parse(txtbxHourlyWage.Text), 2, MidpointRounding.AwayFromZero);
 
-                datagridJob.ItemsSource = null;
-                datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
-                datagridContractor.ItemsSource = null;
-                datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
+                ResetJobDataGrid();
+                ResetContractorDataGrid();
             }
             catch (Exception error)
             {
@@ -254,8 +250,8 @@ namespace AT2
                 recruitmentSystem.AddJob(newJob);
 
                 tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
-                datagridJob.ItemsSource = null;
-                datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+                
+                ResetJobDataGrid();
                 DeselectJobForm();
             }
             catch (Exception error)
@@ -279,10 +275,8 @@ namespace AT2
             {
                 recruitmentSystem.RemoveJob(selectedJob);
 
-                datagridContractor.ItemsSource = null;
-                datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
-                datagridJob.ItemsSource = null;
-                datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+                ResetContractorDataGrid();
+                ResetJobDataGrid();
                 DeselectJobForm();
             }
             catch (Exception error)
@@ -316,10 +310,8 @@ namespace AT2
                 selectedJob.Date = datepickerDate.SelectedDate.Value;
                 selectedJob.Cost = Math.Round(double.Parse(txtbxCost.Text), 2, MidpointRounding.AwayFromZero);
 
-                datagridContractor.ItemsSource = null;
-                datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
-                datagridJob.ItemsSource = null;
-                datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+                ResetContractorDataGrid();
+                ResetJobDataGrid();
             }
             catch (Exception error)
             {
@@ -348,10 +340,8 @@ namespace AT2
 
                     recruitmentSystem.CompleteJob(selectedJob);
 
-                    datagridContractor.ItemsSource = null;
-                    datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
-                    datagridJob.ItemsSource = null;
-                    datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+                    ResetContractorDataGrid();
+                    ResetJobDataGrid();
                     DeselectJobForm();
                     comboboxFilters.SelectedIndex = 2;
                 }
@@ -389,10 +379,8 @@ namespace AT2
             {
                 recruitmentSystem.AssignJob(selectedJob, selectedContractor);
 
-                datagridContractor.ItemsSource = null;
-                datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
-                datagridJob.ItemsSource = null;
-                datagridJob.ItemsSource = recruitmentSystem.Jobs;
+                ResetContractorDataGrid();
+                ResetJobDataGrid();
                 //datagridJob.ItemsSource = recruitmentSystem.Jobs.Where(x => x.ContractorAssigned is Contractor);  // Update the Job DataGrid
                 comboboxFilters.SelectedIndex = 2;
             }
@@ -415,20 +403,16 @@ namespace AT2
             {
                 case 0:  // Empty
                     // Back to Basic View
-                    datagridJob.ItemsSource = null;
-                    datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
-                    datagridContractor.ItemsSource = null;
-                    datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
+                    ResetJobDataGrid();
+                    ResetContractorDataGrid();
                     tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
                     return; 
                 case 1:  // Get All Contractors
-                    datagridContractor.ItemsSource = null;
-                    datagridContractor.ItemsSource = recruitmentSystem.Contractors;  // Update the Contractor DataGrid
+                    ResetContractorDataGrid();
                     tabctrlDataGrids.SelectedItem = tabitemContractor;  // Focus on Contractor Tab Item
                     return;
                 case 2:  // Get All Jobs
-                    datagridJob.ItemsSource = null;
-                    datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+                    ResetJobDataGrid();
                     tabctrlDataGrids.SelectedItem = tabitemJob;  // Focus on Job Tab Item
                     return;
                 case 3:  // Get Available Contractors
