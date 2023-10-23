@@ -350,14 +350,14 @@ namespace AT2
                     MessageBox.Show(error.Message, "Error");
                 }
             }
-            else
-            {
-                if (selectedJob.Completed)
-                {
-                    MessageBox.Show("Status of a Completed Job cannot be changed!", "Warn");
-                    comboboxCompleted.SelectedIndex = 0;
-                }
-            }
+            //else
+            //{
+            //    if (selectedJob.Completed)
+            //    {
+            //        MessageBox.Show("Status of a Completed Job cannot be changed!", "Warn");
+            //        comboboxCompleted.SelectedIndex = 0;
+            //    }
+            //}
         }
 
         private void comboboxContractorAssigned_SelectionChanged(object sender, SelectionChangedEventArgs e)
