@@ -67,7 +67,7 @@
                         <Label Content="Cost" FontWeight="Bold"/>
                         <TextBox x:Name="txtbxCost" />
 
-                        <Border Background="#FFA5D8FF" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,8,8">
+                        <Border Background="#FFA5D8FF" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,8,8" Margin="6">
                             <StackPanel Height="115">
                                 <Label Content="Status" FontWeight="Bold"/>
                                 <ComboBox x:Name="comboboxCompleted" SelectionChanged="comboboxCompleted_SelectionChanged" Margin="10,0,10,0">
