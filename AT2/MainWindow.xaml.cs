@@ -434,22 +434,16 @@ namespace AT2
 
         private void ClearAllSelection()
         {
-            txtbxFirstName.Text = string.Empty;
-            txtbxLastName.Text = string.Empty;
-            datepickerStartDate.SelectedDate = null;
-            txtbxHourlyWage.Text = string.Empty;
+            DeselectContractorForm();
 
-            txtbxTitle.Text = string.Empty;
-            datepickerDate.SelectedDate = null;
-            txtbxCost.Text = string.Empty;
-            comboboxCompleted.SelectedItem = null;
-            comboboxContractorAssigned.SelectedItem = null;
+            DeselectJobForm();
 
             datagridContractor.SelectedItem = null;
             datagridJob.SelectedItem = null;
 
             datagridJob.ItemsSource = recruitmentSystem.Jobs;
             datagridContractor.ItemsSource = recruitmentSystem.Contractors;
+
             tabctrlDataGrids.SelectedItem = tabitemContractor;
 
             comboboxFilters.SelectedItem = null;
