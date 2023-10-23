@@ -52,6 +52,71 @@ namespace AT2
             datagridJob.ItemsSource = recruitmentSystem.Jobs;
         }
 
+        private void ClearAllSelection()
+        {
+            DeselectContractorForm();
+
+            DeselectJobForm();
+
+            datagridContractor.SelectedItem = null;
+            datagridJob.SelectedItem = null;
+
+            datagridJob.ItemsSource = recruitmentSystem.Jobs;
+            datagridContractor.ItemsSource = recruitmentSystem.Contractors;
+
+            tabctrlDataGrids.SelectedItem = tabitemContractor;
+
+            comboboxFilters.SelectedItem = null;
+        }
+
+        /// <summary>
+        /// Deselect the Forms or Fields for Contractor.
+        /// </summary>
+        private void DeselectContractorForm()
+        {
+            txtbxFirstName.Text = string.Empty;
+            txtbxLastName.Text = string.Empty;
+            datepickerStartDate.SelectedDate = null;
+            txtbxHourlyWage.Text = string.Empty;
+        }
+
+        /// <summary>
+        /// Deselect the Forms or Fields for Job.
+        /// <remark>
+        /// Deselects everything except the ComboBoxes.
+        /// </remark>
+        /// </summary>
+        private void DeselectJobForm()
+        {
+            txtbxTitle.Text = string.Empty;
+            datepickerDate.SelectedDate = null;
+            txtbxCost.Text = string.Empty;
+            comboboxCompleted.SelectedItem = null;
+            comboboxContractorAssigned.SelectedItem = null;
+        }
+
+        private void ResetContractorDataGrid()
+        {
+            datagridContractor.ItemsSource = null;
+            datagridContractor.ItemsSource = recruitmentSystem.Contractors;
+        }
+
+        private void ResetJobDataGrid()
+        {
+            datagridJob.ItemsSource = null;
+            datagridJob.ItemsSource = recruitmentSystem.Jobs;  // Update the Job DataGrid
+        }
+
+        private void ClearContractorDataGrid()
+        {
+            datagridContractor.ItemsSource = null;
+        }
+
+        private void ClearJobDataGrid()
+        {
+            datagridJob.ItemsSource = null;
+        }
+
         private void datagridContractor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Contractor selectedContractor = (Contractor)datagridContractor.SelectedItem;
@@ -401,52 +466,9 @@ namespace AT2
             }
         }
 
-        /// <summary>
-        /// Deselect the Forms or Fields for Contractor.
-        /// </summary>
-        private void DeselectContractorForm()
-        {
-            txtbxFirstName.Text = string.Empty;
-            txtbxLastName.Text = string.Empty;
-            datepickerStartDate.SelectedDate = null;
-            txtbxHourlyWage.Text = string.Empty;
-        }
-        
-        /// <summary>
-        /// Deselect the Forms or Fields for Job.
-        /// <remark>
-        /// Deselects everything except the ComboBoxes.
-        /// </remark>
-        /// </summary>
-        private void DeselectJobForm()
-        {
-            txtbxTitle.Text = string.Empty;
-            datepickerDate.SelectedDate = null;
-            txtbxCost.Text = string.Empty;
-            comboboxCompleted.SelectedItem = null;
-            comboboxContractorAssigned.SelectedItem = null;
-        }
-
         private void menuitemClearSelection_Click(object sender, RoutedEventArgs e)
         {
             ClearAllSelection();
-        }
-
-        private void ClearAllSelection()
-        {
-            DeselectContractorForm();
-
-            DeselectJobForm();
-
-            datagridContractor.SelectedItem = null;
-            datagridJob.SelectedItem = null;
-
-            datagridJob.ItemsSource = recruitmentSystem.Jobs;
-            datagridContractor.ItemsSource = recruitmentSystem.Contractors;
-
-            tabctrlDataGrids.SelectedItem = tabitemContractor;
-
-            comboboxFilters.SelectedItem = null;
         }
     }
 }
