@@ -52,10 +52,12 @@ namespace AT2
             datagridJob.ItemsSource = recruitmentSystem.Jobs;
         }
 
+        /// <summary>
+        /// Clear and reset MainWindow UI.
+        /// </summary>
         private void ClearAllSelection()
         {
             DeselectContractorForm();
-
             DeselectJobForm();
 
             datagridContractor.SelectedItem = null;
@@ -95,12 +97,18 @@ namespace AT2
             comboboxContractorAssigned.SelectedItem = null;
         }
 
+        /// <summary>
+        /// Reset the Contractor DataGrid with all contractors.
+        /// </summary>
         private void ResetContractorDataGrid()
         {
             datagridContractor.ItemsSource = null;
             datagridContractor.ItemsSource = recruitmentSystem.Contractors;
         }
 
+        /// <summary>
+        /// Reset the Job DataGrid with all jobs.
+        /// </summary>
         private void ResetJobDataGrid()
         {
             datagridJob.ItemsSource = null;

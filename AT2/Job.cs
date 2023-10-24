@@ -194,6 +194,11 @@ namespace AT2
             return randomId;
         }
 
+        /// <summary>
+        /// Assigning a Contractor to a Job.
+        /// </summary>
+        /// <param name="contractor"></param>
+        /// <exception cref="Exception"></exception>
         public void AssignContractor(Contractor contractor)
         {
             if (completed)
@@ -211,6 +216,9 @@ namespace AT2
             contractorAssigned = contractor;  // Set contractorAssigned to the New Contractor object
         }
 
+        /// <summary>
+        /// Deassign a Contractor to a Job.
+        /// </summary>
         public void DeassignContractor()
         {
             if (contractorAssigned != null)
@@ -220,6 +228,9 @@ namespace AT2
             }
         }
 
+        /// <summary>
+        /// Changed the Job Status to Completed.
+        /// </summary>
         public void JobDone()
         {
             if (!completed)
