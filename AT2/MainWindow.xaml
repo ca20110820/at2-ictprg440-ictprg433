@@ -36,7 +36,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Contractor Form -->
-                <GroupBox Grid.Row="0" Grid.Column="0" Header="Contractor">
+                <GroupBox Grid.Row="0" Grid.Column="0" Header="Contractor" Margin="4">
                     <StackPanel>
                         <Label Content="First Name" FontWeight="Bold"/>
                         <TextBox x:Name="txtbxFirstName" />
@@ -58,7 +58,7 @@
                 </StackPanel>
 
                 <!-- Job Form -->
-                <GroupBox Header="Job" Grid.Row="0" Grid.Column="1">
+                <GroupBox Header="Job" Grid.Row="0" Grid.Column="1" Margin="4">
                     <StackPanel>
                         <Label Content="Title" FontWeight="Bold"/>
                         <TextBox x:Name="txtbxTitle" />
