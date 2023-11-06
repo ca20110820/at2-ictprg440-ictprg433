@@ -13,6 +13,7 @@
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_Edit">
                     <MenuItem x:Name="menuitemClearSelection" Header="_Clear Selection" Click="menuitemClearSelection_Click"/>
+                    <MenuItem x:Name="menuitemDeleteAllData" Header="_Delete All Data" Click="menuitemDeleteAllData_Click" />
                 </MenuItem>
             </Menu>
         </DockPanel>

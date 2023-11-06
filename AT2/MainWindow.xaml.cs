@@ -125,6 +125,24 @@ namespace AT2
             datagridJob.ItemsSource = null;
         }
 
+        private void DeleteAllContractors()
+        {
+            List<Contractor> tempContractors = new List<Contractor>(recruitmentSystem.Contractors);
+            foreach (Contractor contractor in tempContractors)
+            {
+                recruitmentSystem.RemoveContractor(contractor);
+            }
+        }
+
+        private void DeleteAllJobs()
+        {
+            List<Job> tempJobs = new List<Job>(recruitmentSystem.Jobs);
+            foreach (Job job in tempJobs)
+            {
+                recruitmentSystem.RemoveJob(job);
+            }
+        }
+
         private void datagridContractor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Contractor selectedContractor = (Contractor)datagridContractor.SelectedItem;
@@ -461,6 +479,27 @@ namespace AT2
         private void menuitemClearSelection_Click(object sender, RoutedEventArgs e)
         {
             ClearAllSelection();
+        }
+
+        private void menuitemDeleteAllData_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // https://stackoverflow.com/questions/18315786/confirmation-box-in-c-sharp-wpf
+                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Delete Data Confirmation", MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    DeleteAllContractors();
+                    DeleteAllJobs();
+
+                    ResetContractorDataGrid();
+                    ResetJobDataGrid();
+                }
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Error");
+            }
         }
     }
 }
