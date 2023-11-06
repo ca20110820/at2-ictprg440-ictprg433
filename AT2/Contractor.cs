@@ -112,17 +112,17 @@ namespace AT2
         public Contractor(string uid, string firstName, string lastName, double hourlyWage)
         {
             this.uid = uid;  // Custom UID
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.hourlyWage = hourlyWage;
+            this.firstName = ValidateString(firstName, "Invalid First Name!");
+            this.lastName = ValidateString(lastName, "Invalid Last Name!");
+            this.hourlyWage = ValidateHourlyWage(hourlyWage);
             StartDate = null;  // StartDate is null by default when instantiation
         }
         public Contractor(string firstName, string lastName, double hourlyWage)
         {
             uid = GenerateID();  // Custom UID
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.hourlyWage = hourlyWage;
+            this.firstName = ValidateString(firstName, "Invalid First Name!");
+            this.lastName = ValidateString(lastName, "Invalid Last Name!");
+            this.hourlyWage = ValidateHourlyWage(hourlyWage);
             StartDate = null;  // StartDate is null by default when instantiation
         }
 

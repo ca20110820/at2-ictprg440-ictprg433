@@ -116,31 +116,31 @@ namespace AT2
         public Job(string id, string title, DateTime date, double cost)
         {
             uid = id;
-            this.title = title;
-            this.date = date;
-            this.cost = cost;
+            this.title = ValidateString(title, "Invalid Title!");
+            this.date = ValidateDate(date);
+            this.cost = ValidateCost(cost);
         }
         public Job(string id, string title, DateTime date, double cost, Contractor contractor)
         {
             uid = id;
-            this.title = title;
-            this.date = date;
-            this.cost = cost;
+            this.title = ValidateString(title, "Invalid Title!");
+            this.date = ValidateDate(date);
+            this.cost = ValidateCost(cost);
             AssignContractor(contractor);
         }
         public Job(string title, DateTime date, double cost)
         {
             uid = GenerateID();
-            this.title = title;
-            this.date = date;
-            this.cost = cost;
+            this.title = ValidateString(title, "Invalid Title!");
+            this.date = ValidateDate(date);
+            this.cost = ValidateCost(cost);
         }
         public Job(string title, DateTime date, double cost, Contractor contractor)
         {
             uid = GenerateID();
-            this.title = title;
-            this.date = date;
-            this.cost = cost;
+            this.title = ValidateString(title, "Invalid Title!");
+            this.date = ValidateDate(date);
+            this.cost = ValidateCost(cost);
             AssignContractor(contractor);
         }
 
