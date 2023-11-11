@@ -105,5 +105,99 @@ namespace AT2PartC
             // Assert
             Assert.AreEqual(2, recruitmentSystem.Contractors.Count);
         }
+
+        [TestMethod]
+        public void RemoveContractor_ContractorAvailable()
+        {
+            // Arrange
+            Contractor contractorToRemove = recruitmentSystem.Contractors.Where(x => x.FirstName == "Terence").ToArray()[0];
+
+            // Act
+            recruitmentSystem.RemoveContractor(contractorToRemove);
+
+            // Assert
+            Assert.AreEqual(recruitmentSystem.Contractors.Count, 2);
+            CollectionAssert.DoesNotContain(recruitmentSystem.Contractors, contractorToRemove);
+        }
+
+        [TestMethod]
+        public void RemoveContractor_ContractorUnavailable()
+        {
+            // Arrange
+            Contractor contractor = recruitmentSystem.Contractors.Where(x => x.FirstName == "Terence").ToArray()[0];
+            Job job = recruitmentSystem.Jobs.Where(x => x.Title == "Maths Professor").ToArray()[0];
+            recruitmentSystem.AssignJob(job, contractor);
+
+            // Act
+            recruitmentSystem.RemoveContractor(contractor);
+
+            // Assert
+            Assert.AreEqual(recruitmentSystem.Contractors.Count, 2);
+            Assert.AreEqual(recruitmentSystem.Jobs.Count, 3);
+            CollectionAssert.DoesNotContain(recruitmentSystem.Contractors, contractor);
+            Assert.IsNull(contractor.StartDate);  // Contractor is still in the memory.
+            Assert.IsNull(job.ContractorAssigned);
+        }
+
+        [TestMethod]
+        public void AddJob_InvalidParameters()
+        {
+            // Arrange
+            recruitmentSystem = new();
+
+            // === Act and Assert ===
+            // Invalid Title
+            Assert.ThrowsException<ArgumentException>(() => recruitmentSystem.AddJob(new Job("", new DateTime(2024, 3, 15), 70000)));
+            Assert.ThrowsException<ArgumentException>(() => recruitmentSystem.AddJob(new Job("  ", new DateTime(2024, 3, 15), 70000)));
+
+            // Invalid Date 
+            Assert.ThrowsException<Exception>(() => recruitmentSystem.AddJob(new Job("Mathematician", DateTime.Now, 250000)));
+            Assert.ThrowsException<Exception>(() => recruitmentSystem.AddJob(new Job("Mathematician", DateTime.Now.AddDays(-1), 250000)));
+            Assert.ThrowsException<Exception>(() => recruitmentSystem.AddJob(new Job("Mathematician", DateTime.Now.AddDays(-30), 250000)));
+
+            // Invalid Cost
+            Assert.ThrowsException<Exception>(() => recruitmentSystem.AddJob(new Job("Mathematician", new DateTime(2024, 2, 24), 0)));
+            Assert.ThrowsException<Exception>(() => recruitmentSystem.AddJob(new Job("Mathematician", new DateTime(2024, 2, 24), -1)));
+            Assert.ThrowsException<Exception>(() => recruitmentSystem.AddJob(new Job("Mathematician", new DateTime(2024, 2, 24), -20000)));
+        }
+
+        [DataTestMethod]
+        [DataRow("   Mathematician  ")]
+        [DataRow("    Mathematician")]
+        [DataRow("Mathematician    ")]
+        public void AddJob_TitleSpaces(string title)
+        {
+            // Arrange
+            recruitmentSystem = new();
+            Job newJob = new(title, new DateTime(2024, 1, 18), 250000);
+
+            // Act
+            recruitmentSystem.AddJob(newJob);
+
+            // Assert
+            Assert.AreEqual(recruitmentSystem.Jobs.Count, 1);
+            CollectionAssert.Contains(recruitmentSystem.Jobs, newJob);
+            Assert.AreEqual(newJob.Title, "Mathematician");
+        }
+
+        [DataTestMethod]
+        [DataRow("Mathematician", 1)]
+        [DataRow("Mathematician", 1000000)]
+        [DataRow("   Mathematician ", 1000000)]
+        public void AddJob_ValidParameters(string title, double cost)
+        {
+            // Arrange
+            recruitmentSystem = new();
+
+            DateTime date = DateTime.Now.AddDays(1);
+            Job newJob = new(title, date, cost);
+
+            // Act
+            recruitmentSystem.AddJob(newJob);
+
+            // Assert
+            Assert.AreEqual(recruitmentSystem.Jobs.Count, 1);
+            CollectionAssert.Contains(recruitmentSystem.Jobs, newJob);
+        }
     }
 }
