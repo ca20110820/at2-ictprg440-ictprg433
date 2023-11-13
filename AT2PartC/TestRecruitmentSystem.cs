@@ -314,5 +314,131 @@ namespace AT2PartC
                 Assert.IsNull(job.ContractorAssigned);
             }
         }
+
+        [TestMethod]
+        public void ViewUnassignedJobs_NoJobs()
+        {
+            // Arrange
+            recruitmentSystem = new();
+            recruitmentSystem.AddContractor(new Contractor("Cedric", "Anover", 50));
+            recruitmentSystem.AddContractor(new Contractor("David", "Hilbert", 65));
+            recruitmentSystem.AddContractor(new Contractor("Terence", "Tao", 100));
+
+            // Act
+            List<Job> unassignedJobs = recruitmentSystem.GetUnassignedJobs();
+
+            // Assert
+            Assert.AreEqual(unassignedJobs.Count, 0);
+
+            foreach(Contractor contractor in recruitmentSystem.Contractors)
+            {
+                Assert.IsNull(contractor.StartDate); 
+                Assert.IsTrue(contractor.IsAvailable);
+            }
+        }
+
+        [TestMethod]
+        public void ViewUnassignedJobs_NoContractors()
+        {
+            // Arrange
+            recruitmentSystem = new();
+            recruitmentSystem.AddJob(new Job("Mathematician", new DateTime(2024, 2, 24), 250000));
+            recruitmentSystem.AddJob(new Job("Maths Professor", new DateTime(2024, 1, 18), 300000));
+            recruitmentSystem.AddJob(new Job("Algorithmic Trader", new DateTime(2024, 6, 2), 500000));
+
+            // Act
+            List<Job> unassignedJobs = recruitmentSystem.GetUnassignedJobs();
+
+            // Assert
+            Assert.AreEqual(unassignedJobs.Count, 3);
+
+            foreach(Job job in recruitmentSystem.Jobs)
+            {
+                Assert.IsNull(job.ContractorAssigned);
+            }
+        }
+
+        [TestMethod]
+        public void ViewUnassignedJobs_SomeAssigned()
+        {
+            // Note: This scenario is similar to ViewAvailableContractors_SomeAssigned
+
+            // Arrange
+            recruitmentSystem.AssignJob(recruitmentSystem.Jobs[0], recruitmentSystem.Contractors[0]);
+            recruitmentSystem.AssignJob(recruitmentSystem.Jobs[1], recruitmentSystem.Contractors[1]);
+
+            // Act
+            List<Job> unassignedJobs = recruitmentSystem.GetUnassignedJobs();
+
+            // Assert
+            Assert.AreEqual(unassignedJobs.Count, 1);
+
+            Assert.IsNotNull(recruitmentSystem.Contractors[0].StartDate);
+            Assert.IsNotNull(recruitmentSystem.Contractors[1].StartDate);
+            Assert.IsNull(recruitmentSystem.Contractors[2].StartDate);  // The Unassigned Job
+
+            Assert.IsNotNull(recruitmentSystem.Jobs[0].ContractorAssigned);
+            Assert.IsNotNull(recruitmentSystem.Jobs[1].ContractorAssigned);
+            Assert.IsNull(recruitmentSystem.Jobs[2].ContractorAssigned);
+
+            Assert.AreEqual(recruitmentSystem.Jobs[0].ContractorAssigned, recruitmentSystem.Contractors[0]);
+            Assert.AreEqual(recruitmentSystem.Jobs[1].ContractorAssigned, recruitmentSystem.Contractors[1]);
+        }
+
+        [TestMethod]
+        public void ViewUnassignedJobs_AllAssigned()
+        {
+            // Note: This scenario is similar to ViewAvailableContractors_AllAssigned
+
+            // Arrange
+            recruitmentSystem.AssignJob(recruitmentSystem.Jobs[0], recruitmentSystem.Contractors[0]);
+            recruitmentSystem.AssignJob(recruitmentSystem.Jobs[1], recruitmentSystem.Contractors[1]);
+            recruitmentSystem.AssignJob(recruitmentSystem.Jobs[2], recruitmentSystem.Contractors[2]);
+
+            // Act
+            List<Job> unassignedJobs = recruitmentSystem.GetUnassignedJobs();
+
+            // Assert
+            Assert.AreEqual(unassignedJobs.Count, 0);
+
+            foreach (Contractor contractor in recruitmentSystem.Contractors)
+            {
+                Assert.IsNotNull(contractor.StartDate);
+                Assert.IsFalse(contractor.IsAvailable);
+            }
+
+            foreach (Job job in recruitmentSystem.Jobs)
+            {
+                Assert.IsNotNull(job.ContractorAssigned);
+            }
+
+            for (int i = 0; i < recruitmentSystem.Contractors.Count; i++)
+            {
+                Assert.AreEqual(recruitmentSystem.Jobs[i].ContractorAssigned, recruitmentSystem.Contractors[i]);
+            }
+        }
+
+        [TestMethod]
+        public void ViewUnassignedJobs_AllUnassigned()
+        {
+            // Note: This scenario is similar to ViewAvailableContractors_AllNotAssigned
+
+            // Act
+            List<Job> unassignedJobs = recruitmentSystem.GetUnassignedJobs();
+
+            // Assert
+            Assert.AreEqual(unassignedJobs.Count, 3);
+
+            foreach (Contractor contractor in recruitmentSystem.Contractors)
+            {
+                Assert.IsNull(contractor.StartDate);
+                Assert.IsTrue(contractor.IsAvailable);
+            }
+
+            foreach (Job job in recruitmentSystem.Jobs)
+            {
+                Assert.IsNull(job.ContractorAssigned);
+            }
+        }
     }
 }
