@@ -1,4 +1,5 @@
 using AT2;
+using System.Diagnostics.Contracts;
 
 namespace AT2PartC
 {
@@ -198,6 +199,164 @@ namespace AT2PartC
             // Assert
             Assert.AreEqual(recruitmentSystem.Jobs.Count, 1);
             CollectionAssert.Contains(recruitmentSystem.Jobs, newJob);
+        }
+
+        [TestMethod]
+        public void AssignContractor_JobAlreadyCompleted()
+        {
+            // Arrange
+            recruitmentSystem.CompleteJob(recruitmentSystem.Jobs[0]);
+
+            // Act and Assert
+            Assert.ThrowsException<Exception>(() => recruitmentSystem.AssignJob(recruitmentSystem.Jobs[0], recruitmentSystem.Contractors[0]));
+        }
+
+        [TestMethod]
+        public void AssignContractor_JobNotComplete()
+        {
+            // Note: In the Setup method, by default all the Jobs are Not Complete and Jobs/Contractors are Unassigned.
+
+            // Act
+            recruitmentSystem.AssignJob(recruitmentSystem.Jobs[0], recruitmentSystem.Contractors[0]);
+
+            // Assert
+            Assert.AreEqual(recruitmentSystem.GetAvailableContractors().Count, 2);
+            Assert.AreEqual(recruitmentSystem.GetUnassignedJobs().Count, 2);
+
+            Assert.IsFalse(recruitmentSystem.Contractors[0].IsAvailable);
+            Assert.IsInstanceOfType(recruitmentSystem.Contractors[0].StartDate, typeof(DateTime));
+
+            Assert.IsInstanceOfType(recruitmentSystem.Jobs[0].ContractorAssigned, typeof(Contractor));
+            Assert.AreSame(recruitmentSystem.Jobs[0].ContractorAssigned, recruitmentSystem.Contractors[0]);
+
+            Assert.AreEqual(recruitmentSystem.Jobs[0].Date, recruitmentSystem.Contractors[0].StartDate);
+        }
+
+        [TestMethod]
+        public void AssignContractor_ContractorAvailable_JobUnassigned()
+        {
+            // Arrange
+            recruitmentSystem = new();
+
+            Contractor contractor = new Contractor("Cedric", "Anover", 50);
+            Job job = new Job("Algorithmic Trader", new DateTime(2024, 6, 2), 500000);
+
+            recruitmentSystem.AddContractor(contractor);
+            recruitmentSystem.AddJob(job);
+
+            // Act
+            recruitmentSystem.AssignJob(job, contractor);
+
+            // Assert
+            CollectionAssert.Contains(recruitmentSystem.Contractors, contractor);
+            CollectionAssert.Contains(recruitmentSystem.Jobs, job);
+
+            Assert.AreEqual(recruitmentSystem.GetAvailableContractors().Count, 0);
+            Assert.AreEqual(recruitmentSystem.GetUnassignedJobs().Count, 0);
+
+            Assert.IsFalse(contractor.IsAvailable);
+            Assert.IsInstanceOfType(contractor.StartDate, typeof(DateTime));
+
+            Assert.IsInstanceOfType(job.ContractorAssigned, typeof(Contractor));
+            Assert.AreSame(job.ContractorAssigned, contractor);
+            Assert.IsFalse(job.Completed);
+            Assert.AreEqual(job.Date, contractor.StartDate);
+        }
+
+        [TestMethod]
+        public void AssignContractor_ContractorAvailable_JobAssigned()
+        {
+            // Arrange
+            recruitmentSystem = new();
+
+            Contractor contractor1 = new Contractor("Cedric", "Anover", 50);
+            Contractor contractor2 = new Contractor("David", "Hilbert", 65);
+            Job job = new Job("Algorithmic Trader", new DateTime(2024, 6, 2), 500000);
+
+            recruitmentSystem.AddContractor(contractor1);
+            recruitmentSystem.AddContractor(contractor2);
+            recruitmentSystem.AddJob(job);
+
+            // Act (and a bit of Assert)
+            recruitmentSystem.AssignJob(job, contractor1);  // Let Job be Assigned to contractor1
+
+            Assert.IsFalse(contractor1.IsAvailable);
+            Assert.IsInstanceOfType(contractor1.StartDate, typeof(DateTime));
+
+            recruitmentSystem.AssignJob(job, contractor2);  // Replacing contractor1 with available contractor2
+
+            // Assert
+            CollectionAssert.Contains(recruitmentSystem.Contractors, contractor1);
+            CollectionAssert.Contains(recruitmentSystem.Contractors, contractor2);
+            CollectionAssert.Contains(recruitmentSystem.Jobs, job);
+
+            Assert.AreEqual(recruitmentSystem.GetAvailableContractors().Count, 1);
+            Assert.AreEqual(recruitmentSystem.GetUnassignedJobs().Count, 0);
+
+            Assert.IsTrue(contractor1.IsAvailable);  // Replaced contractor1 with contractor2, contractor1 goes back to available pool
+            Assert.IsNull(contractor1.StartDate);
+
+            Assert.IsFalse(contractor2.IsAvailable);
+            Assert.IsInstanceOfType(contractor2.StartDate, typeof(DateTime));
+
+            Assert.IsInstanceOfType(job.ContractorAssigned, typeof(Contractor));
+            Assert.AreSame(job.ContractorAssigned, contractor2);
+            Assert.AreEqual(job.Date, contractor2.StartDate);
+        }
+
+        [TestMethod]
+        public void AssignContractor_ContractorUnavailable_JobUnassigned()
+        {
+            // Arrange
+            recruitmentSystem = new();
+
+            Contractor contractor = new Contractor("Cedric", "Anover", 50);
+            Job job1 = new Job("Mathematician", new DateTime(2024, 2, 24), 250000);
+            Job job2 = new Job("Algorithmic Trader", new DateTime(2024, 6, 2), 500000);
+
+            recruitmentSystem.AddContractor(contractor);
+            recruitmentSystem.AddJob(job1);
+            recruitmentSystem.AddJob(job2);
+
+            // Act
+            recruitmentSystem.AssignJob(job1, contractor);
+
+            // Assert
+            Assert.ThrowsException<Exception>(() => recruitmentSystem.AssignJob(job2, contractor));
+
+            CollectionAssert.Contains(recruitmentSystem.Contractors, contractor);
+            CollectionAssert.Contains(recruitmentSystem.Jobs, job1);
+            CollectionAssert.Contains(recruitmentSystem.Jobs, job2);
+
+            Assert.AreEqual(recruitmentSystem.GetAvailableContractors().Count, 0);
+            Assert.AreEqual(recruitmentSystem.GetUnassignedJobs().Count, 1);
+
+            Assert.IsNull(job2.ContractorAssigned);
+
+            Assert.IsFalse(contractor.IsAvailable);
+            Assert.IsInstanceOfType(contractor.StartDate, typeof(DateTime));
+            Assert.IsInstanceOfType(job1.ContractorAssigned, typeof(Contractor));
+            Assert.AreSame(job1.ContractorAssigned, contractor);
+            Assert.AreEqual(job1.Date, contractor.StartDate);
+        }
+
+        [TestMethod]
+        public void AssignContractor_ContractorUnavailable_JobAssigned()
+        {
+            // Arrange
+            Contractor contractor1 = recruitmentSystem.Contractors[0];
+            Contractor contractor2 = recruitmentSystem.Contractors[1];
+            Contractor contractor3 = recruitmentSystem.Contractors[2];
+            Job job1 = recruitmentSystem.Jobs[0];
+            Job job2 = recruitmentSystem.Jobs[1];
+
+            // Act
+            recruitmentSystem.AssignJob(job1, contractor1);
+            recruitmentSystem.AssignJob(job2, contractor2);
+
+            // Assert
+            Assert.ThrowsException<Exception>(() => recruitmentSystem.AssignJob(job1, contractor2));
+
         }
 
         [TestMethod]
