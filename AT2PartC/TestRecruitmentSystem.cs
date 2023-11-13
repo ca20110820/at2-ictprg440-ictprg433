@@ -440,5 +440,46 @@ namespace AT2PartC
                 Assert.IsNull(job.ContractorAssigned);
             }
         }
+
+        [DataTestMethod]
+        [DataRow(200000, 100000)]
+        [DataRow(-100000, 100000)]
+        [DataRow(-200000, -100000)]
+        public void SearchJobByCost_InvalidParameters(double minCost, double maxCost)
+        {
+            // Arrange and Act
+            Action searchJobs = () => { recruitmentSystem.GetJobByCost(minCost, maxCost); };
+
+            // Assert
+            Assert.ThrowsException<ArgumentException>(() => searchJobs());
+        }
+
+        [DataTestMethod]
+        [DataRow(0, 0, 0)]
+        [DataRow(100000, 100000, 0)]
+        [DataRow(0, 1000000, 3)]
+        [DataRow(275000, 1000000, 2)]
+        public void SearchJobByCost_ValidParameters(double minCost, double maxCost, int numJobs)
+        {
+            // Act
+            List<Job> jobsByCost = recruitmentSystem.GetJobByCost(minCost, maxCost);
+
+            // Assert
+            Assert.AreEqual(jobsByCost.Count, numJobs);
+            CollectionAssert.AllItemsAreInstancesOfType(jobsByCost, typeof(Job));
+        }
+
+        [TestMethod]
+        public void SearchJobByCost_NoJobs()
+        {
+            // Arrange
+            recruitmentSystem = new();
+
+            // Act
+            List<Job> jobsByCost = recruitmentSystem.GetJobByCost(0, 1000000);
+
+            // Assert
+            Assert.AreEqual(jobsByCost.Count, 0);
+        }
     }
 }
