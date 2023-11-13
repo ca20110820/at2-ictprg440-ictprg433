@@ -360,6 +360,69 @@ namespace AT2PartC
         }
 
         [TestMethod]
+        public void CompleteAJob_JobAlreadyCompleted()
+        {
+            // Arrange
+            Job job = recruitmentSystem.Jobs[0];
+            recruitmentSystem.CompleteJob(job);
+
+            // Act
+            recruitmentSystem.CompleteJob(job);  // Try to complete the job again, we expect nothing and no errors
+
+            List<Job> completedJobs = recruitmentSystem.Jobs.Where(j => j.Completed).ToList();
+
+            // Assert
+            Assert.IsTrue(job.Completed);
+            Assert.IsNull(job.ContractorAssigned);
+
+            Assert.AreEqual(recruitmentSystem.GetAvailableContractors().Count, 3);
+            Assert.AreEqual(completedJobs.Count, 1);
+            Assert.AreEqual(recruitmentSystem.GetUnassignedJobs().Count, 2);  // 2 because we exclude the completed jobs
+        }
+
+        [TestMethod]
+        public void CompleteAJob_AssignedContractor()
+        {
+            // Arrange
+            Contractor contractor = recruitmentSystem.Contractors[0];
+            Job job = recruitmentSystem.Jobs[0];
+            recruitmentSystem.AssignJob(job, contractor);
+
+            // Assertions before completing
+            Assert.IsFalse(contractor.IsAvailable);
+            Assert.IsInstanceOfType(contractor.StartDate, typeof(DateTime));
+            Assert.IsFalse(job.Completed);
+            Assert.AreSame(job.ContractorAssigned, contractor);
+
+            // Act
+            recruitmentSystem.CompleteJob(job);
+
+            // Assert
+            Assert.IsTrue(contractor.IsAvailable);
+            Assert.IsNull(contractor.StartDate);
+            Assert.IsTrue(job.Completed);
+            Assert.IsNull(job.ContractorAssigned);
+        }
+
+        [TestMethod]
+        public void CompleteAJob_NoAssignedContractor()
+        {
+            // Arrange
+            Job job = recruitmentSystem.Jobs[0];
+
+            // Assertions before completing
+            Assert.IsFalse(job.Completed);
+            Assert.IsNull(job.ContractorAssigned);
+
+            // Act
+            recruitmentSystem.CompleteJob(job);
+
+            // Assert
+            Assert.IsTrue(job.Completed);
+            Assert.IsNull(job.ContractorAssigned);
+        }
+
+        [TestMethod]
         public void ViewAvailableContractors_NoContractors()
         {
             // Arrange
